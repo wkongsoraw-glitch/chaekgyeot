@@ -1,0 +1,2497 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="코딩도 기획도 배운 적 없는 사람이 AI와 함께 무언가를 만들어 내보내기까지. 네 권으로 나눈 실용 시리즈.">
+<meta name="author" content="최수빈">
+
+<!-- 카톡·메신저에 링크를 붙였을 때 보이는 미리보기 -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI와 동행하는 방법">
+<meta property="og:description" content="코딩도 기획도 배운 적 없는 사람이 AI와 함께 무언가를 만들어 내보내기까지. 네 권으로 나눈 실용 시리즈.">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+
+<title>AI와 동행하는 방법</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap">
+
+<style>
+  /* ═══════════  가을 토큰  ═══════════ */
+  :root {
+    /* 권마다의 색 — 늦가을에서 하나씩 */
+    --h-moss:      #4C6444;   /* 1권 · 마른 이끼 */
+    --h-persimmon: #B04A18;   /* 2권 · 감 */
+    --h-plum:      #7C3B5E;   /* 3권 · 들국화 */
+    --h-dusk:      #35566F;   /* 4권 · 저녁 하늘 */
+    --h-series:    #8A6A2F;   /* 시리즈 · 마른 억새 */
+    --accent: var(--h-series);
+
+    --ground:    #FAF7F1;
+    --surface:   #FFFFFF;
+    --surface-2: #F1ECE1;
+    --ink:       #211D18;
+    --ink-soft:  #574E44;
+    --ink-faint: #877C6E;
+    --rule:      #E0D8C9;
+    --rule-soft: #EDE7DB;
+    --code-bg:   #F2EDE2;
+    --shadow:    0 1px 2px rgba(33,29,24,.04), 0 12px 30px -24px rgba(33,29,24,.45);
+
+    --measure: 38em;
+    --mid:     760px;
+    --wide:    900px;
+
+    --f-display: "Gowun Batang", "Apple SD Gothic Neo", serif;
+    --f-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
+    --f-mono: "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --h-moss:      #A2C291;
+      --h-persimmon: #EC9660;
+      --h-plum:      #D79CC1;
+      --h-dusk:      #93B9D6;
+      --h-series:    #D9B872;
+      --ground:    #14120E;
+      --surface:   #1C1913;
+      --surface-2: #241F18;
+      --ink:       #EEE8DC;
+      --ink-soft:  #B5AA97;
+      --ink-faint: #8B8070;
+      --rule:      #322B22;
+      --rule-soft: #241F18;
+      --code-bg:   #1F1B15;
+      --shadow:    0 1px 2px rgba(0,0,0,.5), 0 12px 30px -24px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"] {
+    --h-moss:      #A2C291;
+    --h-persimmon: #EC9660;
+    --h-plum:      #D79CC1;
+    --h-dusk:      #93B9D6;
+    --h-series:    #D9B872;
+    --ground:    #14120E;
+    --surface:   #1C1913;
+    --surface-2: #241F18;
+    --ink:       #EEE8DC;
+    --ink-soft:  #B5AA97;
+    --ink-faint: #8B8070;
+    --rule:      #322B22;
+    --rule-soft: #241F18;
+    --code-bg:   #1F1B15;
+    --shadow:    0 1px 2px rgba(0,0,0,.5), 0 12px 30px -24px rgba(0,0,0,.9);
+  }
+
+  /* 지금 펼친 권이 페이지 전체의 색을 정한다 */
+  :root[data-hue="moss"]      { --accent: var(--h-moss); }
+  :root[data-hue="persimmon"] { --accent: var(--h-persimmon); }
+  :root[data-hue="plum"]      { --accent: var(--h-plum); }
+  :root[data-hue="dusk"]      { --accent: var(--h-dusk); }
+
+  .c-moss      { --card-hue: var(--h-moss); }
+  .c-persimmon { --card-hue: var(--h-persimmon); }
+  .c-plum      { --card-hue: var(--h-plum); }
+  .c-dusk      { --card-hue: var(--h-dusk); }
+  .c-series    { --card-hue: var(--h-series); }
+
+  /* ═══════════  로고  ═══════════ */
+  .logo {
+    display: block; flex: none;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcQAAACeCAQAAAAGNLKxAAAn7UlEQVR42u1dB5wV1dU/qBSliWID7Io11lj4GRXUz5bYW6wgdW0J9hLzqTGWmC8aK4oVwd5iEKwYNdgVsCKgoqKwu8AubHltZu5+5557576ZV2demZl9e8/9vd33ppf7v6efC6BJkyZNmjRpsmkSPAgPwSPYplB7FL89BPfDZPzYbTL9eoA+D8n2oGwPqPX3q234Vg/naGLPh/EMU2Wbhud7VJ2Z/54qf02hK3oEt+Zn4ee4D9tkPDb/dR9e9z344ed1Xs2D6vrE2fgxH5VHe4SOxtfwcz0GT8Dj+NdeM1x3BU1h0gpohQSYXbgZEMe/5+uuoClMakIgpsDCrmgBgw5q9n/7F3N8t2g7lmNd/saythO/7aUs4xwsxx7Z18McV9yR53qYq2Uv478tHIgMDURN4VILtGE37PDVmM/to90sSOITuEB3BU1hUnsJQOycjWkgaooutVUYiMyToBotgGogagqdVpcFRBYhOLEygJjQQNQULjUjEM0uIZrmB2JCA1FTVIHIaswkozmipkhTU0Q5IgsUiEn4g+4KmjQQw3ZfpOBC3RU0hUkr8oqmuZZZZXd6VtTZH4QBx3knTANRU/i00gcQa1dHTMJE3RU0RRGIQWqBLALGmot0V9DUNYEYLY54ie4KmsLWEY0cgd5WpxFOy9UxhbHmUt0VNIVJy2uII7KSgWjA5boraAqTGrVoSkC8THcFTRqIYfJJwREv1l1BU9g6ohkyTFhAZ7LyeEe5sUb7ETWFSs2B5COmM/KZzPK3qCqAgRCIU0tAylG+ggXuvtAcUVOotBraqw7EdGkLg+CWgib4Ah6F8+EUOBj2hl/DMDgIjoJxcA/MxaHBIIgyDURNXYdWBQJERvwvDovhIRgNe8DaBa5oXdgP/gyvQQvxxuq7UYT74krdFTTVto7ICFBJmAmH+LqyAXAm8scklXYyqwxEA/5XdwVNncNqykoIShP64FK4HX5V0tWtAfvDk8hJk0U4Y2YVOP/ui6t1V9BUexzRNslw0fI2hFN5NAwWkmXTKjm6hhUVTbVDX1OoVI1YUybtoUn4GY6syFVuAI+hiJos2Z5aDIhJHeKmKVxqgvYqANFA2LSgQLpRBa90F3i9DCjq7AtNkabmqgAxhXrdiRW/1m5wRxERVQNRU40A0WsR/ULcMAVfo15XHaqDGNlRWUWBmNJpUJrC1hFL4YisgMaVgnrYoopXfBCsJjtnpXRFprMvNIVPyytUTlFEcnITzWzYusrXfLycOIdV0I+oHfqaIglEPxkMjLqzsJN+AL0CuOrTqCiwVTHRVANRUw1wREYOC26g+Qa2Cui6r8bzJYsMIV71Xe1H1BQBHbEQR3R35UId24QYNMBmAV75dMobYRWymuo0KE2hUmXSoCzqzrcGeuUD4UfiZUwDUVOtc0SvsaXcgf8FrBfwtf8KVhSNQvVmrNGJwZo6hbGmkGgqNMQW2D6Eq79VZjhqIGrqIkAs5DnkFsxJoVz9ptCIuqlVNhBTOjFYU+fhiPk6Mi90sV1I1z+SshWtMnXEpAaipnCp3DQoUWNmcoh38BHyxFTZHLFWyyn+Ec6F38CQslPRNJVKh8KzcAu+hxGwDXQvBMTygr4NhMEq2CTEGz23AkA04Iqa7AS/RlmFp1XH4BuYCmfAUOihkREorQ/1sBqZXZzkrh9hFkyEYblKxSwvC4g8z6Id7gn1Vrci0dTUQMxBB8AP+IZ4qEUMPynsED/CdJgAe4R8Xet0GQ7dG26lOUh5lUKDHGU8V/c7lCEzCsc0lCGainia1VUN8fZCz9N4w7RomoP6wVkwh5Kq+XBjUHcw8fcpIV7TgbAMFsPjMB627RJg3Bz+iQwvHQfGzZvtmXaVBp/zI4opPi3FDxPwWug3ug+N96zE+S9YTQORU3+YS6lj4s2JEibjQrye41CZiVE6Wxzexl9rdgEwboUiKpNI48kRbcjA+njREb1FacZx7yik1C6kzP3SZh8WQIxG8aiD4GbYDboV2aonqv17+gqf6A0f0l12yCImMRylw6TNUGONE4/gfHoR3IbabK1rryfKRAWTlIUkDkEuWlmWjsgFnp0icJP30yhjliGaXhOJl/UY8oo4ipJXw94wOIceNQQOg0dhCYk2S+AYH0e+mrqBUCaSqKOET0+pwVOEVCyA4TUNxH7UzwzZzEwGVrr7QkTULI7ESHYmvUqzJI4oukE06poOhndJZEuR8PIdfArvwSx4Ez+zYR58Cy0Ep6R0GiWQe3qlOjkeW2QwmB2Bex1KUy2IiRZSNLQ0hGp990pn4aB2Psou28OAorKLk9akktmWrPNrwRHu1ctLDPq2K7VNjcTD2YXsgqXlYrAIARFQb1hMI6eYGSQ9gtotJZv47t3kMppEQSHFxOFfkbjXX7DviSkY7DsdHXkYDsDhIkFSBS+P9hX8Gy6GfVH09wLEVtk/TXq3+2YD0fTFBZ0wTMGoSDyeXiRil5a1LzjiNZF51SciUAwpb4ixM90M2QWEO+ItH0nYo1xAfCoSg2eKTEiiV6XI/r5NgIAaB8NgY9+GorVRpPyQ3pD9Rvj7aICbPHFESwKRv8fdM4FYWs0aRhmIWYcLjebS1VhqoPAupAodMUol9x+ibBahzTl5YhLfVTPUw0/INb/DrXr7OKYTiDF4IgJ3+Q85yIi3wAXnGwM8+1XkZOep7M/Ctah5DykU9ZJF+8FSl5QSh3c8AHEV9dAO+WZ3yjbWGCUGt7XjK90wIp33WalvlGo1/VOEgNgbtUHOK35BEfJiOBn1kf3x1e8Le8B2qEX2R628m+9jjibdUgCxDaaFfo/dcShJqLdlkW9tqwDP/3eSKxLUh5P0fz485uMKTpExS6KlPAS1rImDqMgUEnLNjplA9KcjMhcQf4mM0fkaEhZYCcUyRGRNlIAIsD1MQOD1qeARx1GH4U8kgW/8kdDv8C/U/S1H2kDQSs6e8AJdQ0qZvlb7sHj0hAU09Ns20OOL7rEWiqYpWWKNA3EH9+qmkjP0TRpFokLnlehF7CqT0IwjjsiI87TBwyFfzTDiQ4a0c3MYXB/KddxI3MyU85W1wm0+9n2S7oAREBOwc9HtexDSbE0/kQnElSUBkVH90jb4JDId7Wz5SnU5xfxW04Qc+cMG4nooerepWB/ejd9BfhEG9YAfCRiWLH52uo99pxI/7CAz01IP+npPssakgbh9ttXUKAGGQkX9AcbDWPzUwbnIk87Dv3XYJsA52Cbg8gn0+xxaez62c+XysTAGP+PkFnzPOlo+DpfzNfyYdhtHv8XW/BffZhScBWdgOxNGIgTH4nGfKpkjml0iQ38U+SdNmi62DaaEei03kqtJTNFukWC6Y2jX8ga9fzGIJ2EfH3tOU0BMwk8erK89yBpjqtimDI64okSOKOTcpLTruY3slrQLOdeLDAlTStTpZsnlpstY71xiOPxppvKl2ce292ElB66LCgN/7MQg6wMH41A0BrXKAQU4Yox0Mq4jxkL1/h6Oulhcyi4WeeOODvFqXiZY2D12V18c0SBeyrnbDx62XwPv21D+4Xim1bSpRCAKiFh5qthYClas5BjQtBuC5XSemHnPzkqwmgYfMVsZe/NO8CCFxbWRHzWFQt9+ObcbQ6Ipk37E8KymW6ImZg+cFnX+u0MdxF6it28HSPgJ15wmIcWfp5eQwW6INWHXF66onTOB6N194QYVyxkabq9P/7VKhmGh4o2WwwflnJ2Yqf8dBT2KzFVzJ4XCcbA0El8F92FdD6fAcNgaYdkbuqOAswZ+uqMY08vR1sZ1/WAgbASDccsdsO0Eu8ExcAu8Td6wlLqnNgRl7lLJY10O/cdC6vY9YJYMPreffBIuKcEZUzmarsLsOPPY2ceejykgxmCRpz2aJfMQQNwp21hjOub4zQc/J4/LN0V3WkxMw9HM4I3Zx7VcfNMJ5NzcUKi7hvIZMhnnkynO2uFgSVdLyNy8lBJ3kxSnMj7gDrArfERGInH2dkoLiuG7aKVMtZTDVczXxtWYnZL3IJaLLS2HwmDkCbGY4PAjxkNz6E8lvm06ooT43SwKMTtypqyNa9LHDxAfl72OP89vPYqmllLrEvl0xGwYWi5tTDyypOrEqax1CUc3t7dLFmmJvM3eO+Vqtp6YPj9PxGpDPWMVDilLYQkshu9RUPgGPkZu8Sq8iDxnGtwPd8BtcCv8H9wE12C7DCaSTnUGnATHwm/hf2BERadU9codZqunZN9xKkPcZw5tO60np4dGO7bDknZsBu/mOds5DiDGsBOFQSPJaZFSw0kbymNxGVn7Eb6JMOhV6k1Miow7+eaIjO7lew/b8xA3O9aUD7DbZVtNk1m8jpv055GF8iw4FU6EE7DLnozj1u/hNDgd2xn4OQ3bqbiELz8F158ktzkF//L/p+O+I/HD//L/p8ut+dGOw8d+DLaj4Sj4HRwJR8BhcCgC4hA4GA5CUe1AOAD2h9/AMNgH9kTusROOH9vBtrAVbIbi2SCEzUDoD31QbFsrVMGmXC3xDRpKkgqAtuQhOquppAr3kOYOAk8qztIGM/LmL9TRFgKI7aEYa47BQT8uA7z5Xdfju94SnpHzXfL2PgrQ/UOymprEePxYb6c6gPidJyA6OWIWEFdKj447OIw7658DTUGIRjEprJkyTWkVcvV34CnkWgslPPnbuAa5+PnkBPojXAgXYbsMLkX96mL8dQG5jc4uGPc7gcQhAcRWeCDw+6wjjmypgmMJHIztNXElAcVQpqnLVVqpajSLhjk7icFPUdBpCogJj6LpKomznEBcpTgiUwKqRSWhntAoCYDWQ/G5ncbUKQiyA5DXpzn85jCfeIgYc2/OYw/1RuPpKDYQ7wv4Li+TBpEOmcD9k8tlsQu8JvP1Bff/EW5AXhkURzRk0hl/PpPhr/AXuB7PfwN+ux5uQXXmVlRr7oC7YBLci+sfhBdQnH0TuXez1HU5d1/gCYjNrsiaoe7Vrcp94dQ7uPjyuEZJQHRw3gTfTVB1SCj9OwVvlZwoNMERaxo0EG+jc9txpSb8DEOytvkzmZ9MFWLRAn8LRG9/XXmjnZ7xlLJFOD3haVOg23TWDl971BGFfi+C4jIKZ7U4gJi2QGogRoWuo6x82+wdQ1Vi/RI5oiiVYREQgysI3QtBH5PKD+9ZcfgsTzHHbVAGSxF3srP8muFhGOErPakUjphwaOPMYd1njvCRdMiK07Zv87Z2+MLDmdZSmb9CNM3g+c1ZicFMAzFCdD9lsac197ivLEQnENOxpsHpiBtT/bi07TsB/y5oXNsfRfBYhmFqHpxcxTpvb7qm9rMczi9nDJjh4pemS5XjWPncw5m6E8e3FL42LQ5Ek3REDcTwaVPkgElZAkS89H+UrCPGZXHbOALxoUCufi/kFDHFCzmHuxrWKbLPQJQBGklrTnufU6iD/bVK2ftvS/eFcABdAieRVf8E/Mu/HQW/hSOwHQ6HkU3/INTiuUWft1kSjlxH9ALEtWT2hTDWxDKB2JIVWWOz3BZYgtL8L7AMGvDRLMfWAEvxt2hLcfkyqFfrlsMK1RqpNdA6/r8et1xK+/5MRxR/xRHEMerpv2j8l32eZfRtiWx8n3o6br1j3wZ5pno6h93E/j+rfX92XLl9jKVym5/w25hIAvEZ5coXoelzSj7SOCquYco0qCCCvo+X+RV2MFsbdmZvtCMZqQxX7iuPkJ1chYqBbymrKQfIUB972mlQXIj+ypOxZrXM0BdA3Dw3EN1hYaaqjpLIiknJ7Zgv5qxPFtk34TBKJDwcOemjJfIePSmLALVDXQRhOIQM+qY0ofGueFzJxzpbcsSg/IgnIP9LSMeMKJboJ6C6D8yUe6cZRIp05Jsqmi7NRVNTWk0tn0B8igZJURXvS0/GmtUyCsrMpSOuVpE1uWNGO4rEbJbfWNlLve2Z7/pFR7kggkD8K3UOJjlCeTVdRhIQLRlZU92g760pgjMh9cI49rG/+ChzJagnjIKPSRZgDjmNv6lGuC0zPKwMmiVDJwyCh58pAJ4ljugHiK1SszSJI2aU5VhZ9vyInbcxGRjGFfDopUH1QtE7qbTDVJmV10R4GZMc8dEqXvdvUNy3o2WTZFHctoyhKEWOD8thMBFxtjdUDIiGBCI/th899EWpxSZp2novOmKrquLGgZjBEVc4rHLV4GzRBqIpR9noJQb3hRnK+yYGjD+V5VdL1zXlOmK1jDUD4W5VTc+kGMzLywxaG4bcNeaoDpP23i2ASyogpv5HAZE/7a197PmSAiJ3yXh1X1gqsmazbI6Yqil4+anQakMxEYkZPJz0MuVWGKp+Jn+FLXAtArRUY0061rStSn7E4Sg22r42fra7KhQ5egLKBm2yxk06fbwd290VAGJKFjlO+QTiDIfVdK6H7Xu4gBiDQbUumjLwX7MmakC8RJr8hchUD68o09JS+KeHaWpyuS+cQLy/4lc8FPXOdHGkRngY9qrg0bfCoaNVGW9EICZPGivf6PSm9AwKXutHNJ2pOGIMtVlvQExJoxB3D2bIN02dBIjV48zCWHNJhGC4G6yShhVR2OoM4FNwJygJOEFxKs/5NuRPcAGxsg79AXAVNOO12RGbd1Ylh+K3yDTiypHOrchNFYhInaVc9PyYfrTZV5R/tB0+9ATEFunQERwxA4irSi6nWDsclL+KSyMDw31odgVTxnnEYKJcvgdMoWovwhbZDq9DnQ9Rqq5KoummcANybLsm+UKE5BZVezKD4HrktUnJh97PrINWBkdkJQDxZclF+QD5vkcgJh1AHJTbj9jVgRgV0XQAfCdDu4TIfK1r7Yn0Mi2VtxiDezzOoFQn06BE0PekChmUbsShIUZWzCSCcFQARRF3gcV4ttXwZYX8ibNdicH+gJhUQd8feNi+OyGNKYf+4Nx+xGzxzxncml0KimWEv1oF1gbd/FXJYRFyX/Sg/ERDOlUSMB16ZmyxF/xIQiBTzpdGBFnxGenPlRyxckBcF77BYaGVwtEW4jWsE9AzWh/FyZW+Ch8WovdVZA3v5dv4AmJCxs96A2JPihays0vaMwfQZgKi/VqdYW5t8C1NdvIdLMIHvQh/fUu/vqNv39ISvsZuC+jvItrqe9xzsdzauY3YQjTxzXnURY72rdx3UcZ+/DzOttC1l73v9yhyWx7rxwkgRsF90RseVVl5XJu4NWfmwSC4C7UjezuDXP1fwpU5UovcQEwQEK0KcsTj8LyvwuWorwY78cLaFZxx5UMFRP4st/QFxJQMoo/DR56uOuEAYmvmPQj3hZU1r0Wsk2fo3ygDhy2PJfcvDv2K14WPaYwVMSSxgrE+e8NPqsSGIcPfVqMG1auAaGpPHF3JfMRu0NnpI+kiEn5EP/rtqw4/oheraW/qZ3bkbEtmOluTKn7u5B884eapTv2Ar8Xull0CJD9HDBuIG8E7ci5g3iVmoy5UDLZ3O2bcFXPuxlA+uCiPiDhOVfrmxoUHQZOgj2Wab8o3EF9WfsQEvOcZiEwBcb1sjphU+p9dAJFb5aZ16gd8HQ0wpkcgJkM21hwAv0heyDvEwx4NEafI2WvT1dE513usKBDbIzAbVFToQ1fZzf0RilvAVrA1bIv64tbUtqIm/g+FXVEaORAOw2e/QOKGP/N7PZypj0x7Fq6XVhiYWzS1XMUyqh2PGJRoWlhHtIeesB36f0CxMiGhtAx+72PPjRFSdga5Pc+gASfk2HKsjDVl9G4f0giU9J6rUGVSzsUcL1Do0y59aciEZw6qYZ5szElV6Zu7kHLoiIajUAarESDeQkD07tAPSzTtDv+U1T650v+fEuJJT6WS+4ajevb1eYFo+xG1aGrTByp0jmVFIRuuctXZ9gbB2+LwjKcz9VUlMgW+MoC4IiuyxqoJIP7dExCZmro7nMiaHiiGthNHjqHWcDP0U2vWgEn4Bi6APT2IqUdKK2qH9C1ulkc0TQPxYY1ASZ86aqU7pz9K5+Pmy2YVmYVxRNCOPoBoUcUBrvptUAyITKZpPIe7DkBJdkNsG+D/9VG9XA/WxTYA23qyDZCtv2z9ZOtPBYB564uN/15X7uvczz7aujkaX9qP9u7rOGZ/xxb9VRO/xF++JTdltGcFs+cWU8MD4u9gvtRNGuC+jNe5pyyozwtMfABPwOVweKZ676AhOCqLMhi8AioUAWKskw+ymVRORZvP1HQNBiyFz2EezMH2KeqO/4W3YBa8Bi/DDHgBnqZKs1NQFZgM98BdcCcqESbKIo9kZtoX0RFNsgNwIK6fKZq254g1tTKKy6VylL5315tOZRTiT+TYynTUxUplJLbkOnKhZfmvyHRV3ioes2qFYqzZEp6VY2wSNbZcsZkjsFPEVdGldtJf/lDgiBOwWyRhZh7n/gTHJDS1AsTecBQC4jOExId4R+eVlC48R84k8omHybfddCVM9OXP7K2AKIK+1y3GEZ01TtNpJ5kzIFpZcxq6ZzU0c25ZaA8rzxkyf2VeU/Y8i+kjMA9B4yxwjrgJip2tZNVdhqNr/vrc68Fs0v6ERZvP8XFTweMOhWF5PXvnOea+KD0fcRRy1l8FFkNTyEh1MbxPAnlcBsKLIesk30d6Dd5AnXr3AK7ZzRHbvAGxvCy/4DMpvMTPsIJAvDzAbnQDpfQsh8uKFpDYVw4s/CrjjjL1/ukCWWDYKqOc4q/xqptpNH8bRf9xMBy2Q5WlJ00mtxZ0p+nkeOspJ5jrhm1N/LUOcoPeNMFcT1rf3THxXB9c20vux/fspbbtRcvXksdZA5cOxCFsBziL5upNyPmGTeUHNBCY/SG61MdhrMkBxOYQ0qBYpNKpRGTNlYFaSifC/p74Sjf4hcRt245XehWz8yVHZGUUGO6LAE7IsLq4Eqz5JKltNFFqGyXr8qnlVqOY3IRqTxP+b5XL22mrVtnaHEv57xbXUhFIbk9UtxpbC9V0tVUlM0ONMmj7iZEWpPsoh35O0XRVl8++EMaaKyL6+hZQx+sgrthehlnCngTGKjPE7SrSMZ1auZkVdO/W0rMnkUvXzzZc22SnEThdB0aWGuMsK5WATyOu0faVb7JDcsR+7tVeE4NZJ0prKiUx+NKIvr6FqsqYAfVlHGcc8TBD1jUtPR+xG0J6pSx1aLryXJiqk+2eMcJygCrlqPmdXp85Qa2lpptLucrhM3UWwzWXJH+Dyzw51cOkAQ4gJlAxWSPTaloIiKxma9ZkhrhdElmOaItj3mbhy0dj1TyEHIjlBX3vRrPBG3J+J0tVWuNTxyzFK/4IZsCT8BDcT+0+mEQGfzFV7N/wcxvcS9nqKaXnvQbX0vSxF8A5OGSMhpFwNozBb+OpTUDwnwPnwnn4ORd/jce7GYefsbjlKNxyNLYNIm/jHSiByEgwzSrAmNt9UfvFo9xATEQg+yIfR0y7kMoRvsYoIHKdrtw0qCvkNGopOt4cBN04OAS28TGz4ffS3NJB/O0iqH0aqJQMbuV9PRcQjRorklhKhv5lnQCIH5cJRFtHbPMUpFzY3HQL8rRPkLv9rkReNNeRi2AU9I/WDhCTckYP7nLJSkRfniGaFguSZr5cCqzKYi6rmLHmysgCMSF1RAbzyhRN037ESuQjlleqYq7MAxSmnXO6BBATqmZNPDsFuT5v8Si3BcvtTvdWGMNS6rvbema5XO6ZRS7SdTyzC3RkO+pr3Wr6LQmUjN7R52Uc5xwSJlkFgVgezVMmF/70x0bqmXdDTv8KTIU7UGQ+FnaFDSuSAL2htFtzKL6WvbrekaHvjjeth3+h0v1v/Ps8PIftefpMh5dwqWgvyTYdt3kB172A7UVq/JfY6xmK0uPtafz+LK6ZiTf5KrbX4Q1sr+O3mfAyLuNLX8Hv4sjT5Zlm0tqZ8kpexKWfKktaZfipsJpGVTRdLEU4s2Qg7ghn47NrVg6FRESAaDmAeHaknvkO5OKJyXQnHl64BKZBXabDwSdtRLJNB0kmx2SvbpRAdHdsnqH/bES75lFZ8wSVJ8QKIF4V0btdQvARHPEzj/usAVvACJgA9+DAVq/EIdslwJ3k94R+X3NV9DG/v1ERe+pDUVVpUMVIbI/oXWUdcwMKg+DP/7pcq5tkbZdsID4dWSAaKhG2cuUUr4ksEEVkDQfjnCIC1c5wFt7HBzS4isSdlISgXbpf5NW0ltmlKkGfyEImIjImirNTbolQtGcTFqrSMWXqiDFE1ep8YvgqSheyZI5+hywsZ0S4Zs0xUntkniNbrQJxpjYQr4vo3f5M43EHQcldT7ofjtv7wfGox9yFgvtCWR08nTcTo0SqRuSKN8IRyPFTslpZPCJAjEuViL/LaE4TezOJp3bdtbYidfKKW5rHwekwIN/qZgnEdGyDqKrRDk9EHIjFTDbMF0cMCohrI9/yxxGTkq+l4Es4Frvs5fAo6slL8M3FZKXplByW0nEnCQr5ugEOUoUO6xzZF61wRwRE04R0X/ArHhXJnjaaImlFdGgM5lf3ZCsyjDXCMskFmKkRBeKxKjSqkpE1QQGRT9XyNBxddFanHrAJ7IX8brkKF0vKog6GyhNP52I6A8O4g/0a2CHD0jfekY/YVoFZlMqlL1xAPDOSPe1ICURGg9cb1T1ZoyownJmhH9UCQycr0bQyHkgBxGB0xLXgQRnzyYPB3oXn4U74G7Zb4FaYhEPfi/Af+BgWwC+UFZN0aHjucGc7xTqp8iDq8WiT4EIUQjfOM7pzMcueqPTe0N/i19KIJETT0yLZ0w4hIIpYmJZq1/ltyBFrasnammfBGdTOhJEZ7WxqPMaP/x+FjS89S64dRU2sH6XW2utG5mijVBvp2HcMxROOUW0sClgXwvQKTyMuRNP/Dez1PqEyFixHiHRC2uhMKZMwlVvg9ttaakZH3urxLd2OQ9M2RfMyRKypPXV3+O6L+RKIVoSBeLAEouCITwUPxA5HKkuuzPlqtFxZ+u54fUNl5bOKx5oacHVgr3d9eJ9AZyiAOYMb3BUSDMX3RHBUK3LLN+EBvNozYV8Y5GPSF6dDP0ocMcpAHEHDI5N69ZNhADGtLbKQ03gtR0SPVbWgbyPQyJoNYZnS+CzHrCPp/LqUTIyNUxeYDy/D3+EE2CO/za0one8qlRG+H/EbpdvyN3tqJIE4XAExhW/hseqebHne7AtW0OjfGcLCvbo3gi8eNVpOzG2quStS0rkdg8XIMafCDTARjoO9YUvoW5EAq/NUhn4yEu6LBXTvlgTiKZEE4kGUJ2HKZ1blgluNBThiV5ofMegyC9NVwi/nep/Di3Ar6tgHwOCyigMWF01FqYzw3RcLVQxydIE4QgLRCheIUaozwyqWm5GrZk0ihPkR14UnoAVf81K4HXYPYFal8Y65L6IAxPmqsC+H4smRBOIBBERDTqM2pbonW1EkMTj6efqsbEcGB+IFIbzoYXB8BWf68wJEOx/x7ggAMSmtx3xwOCHCQEzJSWMeCUtHzNXVWY0CMRkKEIOkCXISGmE1nRT69SxQxTb432MjzREDEk3bZbk+VrS7sxKy36Ofvy+MNRNrHIh1jsiaKLgvFjmqupll1GutJh1IQLTIatpWbatpvSPWtFDHZTVSSIpFeOruatK5DvdFewTcFwulqUr4j4+J5DMb4XBfBAbEbDc5c4RSGXnL4udzyhcupp97L3tmDMOnx5C5RNRSyinWPhDrpNXUioix5huaTMCOkj0ysu6LtB+xyqJpQ04gCkcrT6ThNZhFpeVWRyXnFvm7TS1rc9VxbnVUdG5VW7apqs4t8oitso6zvY1YFyspkrRUIHYNjmjXNTUoDeofEeCISTXtuAWHRfKZHeICYqXCAteCnWDH7Jm9RIY+y0oMjsEMGAyb4mcT2BjbJtgG4a8h2AbJNpjaEEcbLNsgVxNLxLbi+ybyeIPk90G4ZlNsYv2mMEVG5nsVNFkZphwBxItrHIhjFRD5TIzhV+j51iGYmnB4JJ/ZodKPaFLF1vInd10ThuMQ+CUpCc0wH96FF5wcMbN4lMjjbqt2bF1BukPa1FhADn0j0ElowuKISXq3XEc8OgKiqeWINd09ks/sCJkGJdICF2XOeu+LesMYEsfbHRXMuVtEUXY5RXvq7jCBeLsqyc4CAuIVNQ5EOx9RKB1bh349X0gNkb/jldAzks9sOHHE9HT2fB7Gd7HNhv9im43f3qNf78Bb8CbMgjeoENoMKnr2MhVIe5VKor2B2zSS9cN0zSLK2Z2ilS6OyGQGXPhATMpJSqwS9T7mI9YmynVNKwdE4Ufkg86MCFzP53ImDl4w476IPrONEB2GIw8m6Zi4O90SauaqGFlVYlRAOO6Y5juhiik75+7g3NExOeqqDI5o57vFqm2uLUh3OuYJqrY/UgDxqhoHYh0BUWiIm0fger6WQ20ctaVNIjx8JWRRRSOv9d/MMXt1cU8B54gvOE/VlFVyn8niUdNC5YhmYF7LrsERzycxi4/P0bjT+TLXJBlx7fx0FCx/gF/gZ/wsgwZU5ZajmNmI3+phKS4Ta+qpNWDj6/g2K2i7BtpOtGVyG3GE5Siubuc8Ue4Zgy18RGGKpnfKCayCCHQTkTW1riNeQJPPJCMjBn5NIluqyGTkXYga82ToW7AaFerPYA58Ap/i3zkwF9sc1ebCPGyfYZtH7RP4mNonuG4eagDp9hm1z+FL+Ao//O9XeOQv1L72+i+ofU7LmgOM4ol2pe9K0WhYBI/AoZG5nhnYqybDcA1AJxBTeYwYbqnW/d/KmsXCzBFNkxlZwxz7mVnNcsx/EVyguADi5boraAqTVuQFYnQnUqsGR9RA1BQqrcwZWdPZ5zysnfkRNXURaso7LVu4oPGSlqWBqKmLALHW69ak577QoqmmyHPE6htPwi4eZdS8H1FTJzDWmDXO97wA8U+6K2gKk5bXGBBZSfmIRmTnR9SkgdjJq9P4A+L1uitoCpNWdnnR1Ir0jMGaugitVsYalrOwUpCFDcPhyRZFPWpjjaZQqbVkPyLLUW6qfGCwimuHXkplxLUfUVP0gVgap/M6BYwX+DJfFWz8gZoRR7xUdwVNYVJLxSNrOqOxJqk5oqZwqalTAZFVfJJS21hzhe4KmsK2miYrPgtvkHW6Wcn6JVNA1JE1miIAxITnwhSs04mdhe2lpiwwaOhYU03hUjOlQVkV4ImsouImK6nWt79rYqpUVu1X+takjTUR55kGFcQ7R3cFTRqI4UbWcCCO111BU5jUiMJpjKosJjOqM2YWU83cxv096Siomsw6mr3MUHVrrAJTwYnZN7KPlX3kzKvLbilHkddkzutL0GCkgagpVPoO6mEFVWFMV2wU1RiXYVtKtRuXUk1GUbVxecYWy1R1x59pa7FlozpegzoKb3Hq+PZcsdl6qYCnmAiuSZ6x3nUdy9QZGlV9yWV0/iXU7KsVZ1wqG1/SiHe5UtabbJRXtkyuX6GBqClc6gP9sfVVrQ/0drR1ZOPf+2DLv8Xa2NJb9oV+atv0+rVhCAyH6+Eb4p5GDhiKYv8vwVjYAa9KnLFPxnX0VlfTR10DP3YvbOIq7OtaW+23Du3Rj1r2nfJn0F13BU1djXrDlciRUllOE+7Rexd20Q9Ik6agaEN4gMRTpmYoSqCgWIdcTJMmTYHSRBlMIObZWQ676UeiSVMY9HtookmtEvAMDNaPQ5OmsGhHWIn8cIp+EJo0hUuHwu2wjn4MmjRp0qRJkyZNXZn+HxXbZQ7ifsbkAAAAAElFTkSuQmCC");
+    background-repeat: no-repeat; background-position: left center; background-size: contain;
+    aspect-ratio: 452 / 158;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .logo { filter: invert(1); } }
+  :root[data-theme="dark"] .logo { filter: invert(1); }
+  .logo-cover { width: 86px; }
+  .logo-side  { width: 60px; margin-bottom: 16px; }
+  .logo-bar   { width: 51px; }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.8;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .progress { position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 50; pointer-events: none; }
+  .progress i { display: block; height: 100%; width: 0; background: var(--accent); }
+
+  /* ═══════════  뼈대  ═══════════ */
+  .shell {
+    max-width: 1320px; margin: 0 auto; padding: 0 28px 140px;
+    display: grid; grid-template-columns: 1fr; gap: 0;
+  }
+  @media (min-width: 1080px) {
+    .shell { grid-template-columns: 260px minmax(0, 1fr); gap: 64px; padding-left: 40px; padding-right: 40px; }
+  }
+
+  .side { display: none; }
+  @media (min-width: 1080px) {
+    .side { display: block; }
+    .side-inner {
+      position: sticky; top: 0; max-height: 100vh; overflow-y: auto;
+      padding: 44px 32px 48px 0; margin-right: -32px;
+      border-right: 1px solid var(--rule); scrollbar-width: thin;
+    }
+  }
+  .side-logo { display: block; }
+  .side-title {
+    display: block; font-family: var(--f-display); font-weight: 700;
+    font-size: 19px; color: var(--ink); text-decoration: none; line-height: 1.4;
+  }
+  .side-sub {
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-faint); margin: 6px 0 24px;
+  }
+  .vol-nav { display: grid; gap: 1px; padding-bottom: 22px; margin-bottom: 22px; border-bottom: 1px solid var(--rule); }
+  .vol-nav a {
+    display: flex; align-items: center; gap: 10px;
+    padding: 7px 10px; margin-left: -10px; border-radius: 3px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px; line-height: 1.4;
+    transition: background .15s, color .15s;
+  }
+  .vol-nav a i { width: 7px; height: 7px; border-radius: 50%; background: var(--card-hue, var(--ink-faint)); flex: none; }
+  .vol-nav a:hover { background: var(--surface-2); color: var(--ink); }
+  .vol-nav a.on { color: var(--ink); font-weight: 600; background: var(--surface-2); }
+
+  .ch-nav { display: grid; gap: 1px; }
+  .ch-nav a {
+    display: grid; grid-template-columns: 26px minmax(0,1fr); gap: 10px; align-items: baseline;
+    padding: 6px 10px 6px 11px; margin-left: -12px;
+    border-left: 2px solid transparent; border-radius: 0 3px 3px 0;
+    color: var(--ink-soft); text-decoration: none; font-size: 13.5px; line-height: 1.5;
+    transition: color .15s, background .15s;
+  }
+  .ch-nav a .n { font-family: var(--f-mono); font-size: 10px; color: var(--ink-faint); }
+  .ch-nav a:hover { color: var(--ink); background: var(--surface-2); }
+  .ch-nav a.on { color: var(--accent); border-left-color: var(--accent); background: var(--surface-2); }
+  .ch-nav a.on .n { color: var(--accent); }
+
+  .doc { min-width: 0; }
+  .vol { display: block; }
+  html.js .vol { display: none; }
+  html.js .vol.on { display: block; }
+
+  /* ═══════════  표지  ═══════════ */
+  .cover {
+    padding: 76px 0 52px; border-bottom: 1px solid var(--rule);
+    display: flex; flex-direction: column; gap: 24px; max-width: var(--wide);
+  }
+  .eyebrow {
+    font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--accent);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .eyebrow::after { content: ""; flex: 1; height: 1px; background: var(--rule); max-width: 200px; }
+  .cover h1 {
+    font-family: var(--f-display); font-weight: 700;
+    font-size: clamp(36px, 5vw, 56px); line-height: 1.18; letter-spacing: -.015em;
+    margin: 0; text-wrap: balance;
+  }
+  .cover .lede {
+    font-family: var(--f-display); font-size: clamp(17.5px, 1.9vw, 21px);
+    line-height: 1.8; color: var(--ink-soft); max-width: 33em; margin: 0;
+  }
+  .cover-meta {
+    display: flex; flex-wrap: wrap; gap: 10px 30px;
+    font-family: var(--f-mono); font-size: 12px; color: var(--ink-faint); padding-top: 6px;
+  }
+  .cover-meta b { color: var(--ink-soft); font-weight: 500; }
+
+  /* ═══════════  네 권 카드  ═══════════ */
+  .cards {
+    display: grid; gap: 16px; max-width: var(--wide); margin: 44px 0 0;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 700px) { .cards { grid-template-columns: 1fr 1fr; } }
+  .card {
+    display: flex; flex-direction: column; gap: 9px;
+    background: var(--surface); border: 1px solid var(--rule);
+    border-top: 3px solid var(--card-hue);
+    border-radius: 4px; padding: 22px 22px 20px;
+    text-decoration: none; color: var(--ink);
+    box-shadow: var(--shadow);
+    transition: transform .18s, box-shadow .18s;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 2px 4px rgba(33,29,24,.06), 0 18px 36px -26px rgba(33,29,24,.55); }
+  .card .num {
+    font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--card-hue);
+  }
+  .card h3 { font-family: var(--f-display); font-weight: 700; font-size: 21px; line-height: 1.35; margin: 0; }
+  .card p { font-size: 14.5px; line-height: 1.7; color: var(--ink-soft); margin: 0; max-width: none; }
+  .card .meta {
+    font-family: var(--f-mono); font-size: 10.5px; color: var(--ink-faint);
+    margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--rule-soft);
+  }
+
+  /* ═══════════  권 맨 위의 큰 목차  ═══════════ */
+  .toc { margin: 46px 0 0; max-width: var(--wide); border-top: 2px solid var(--accent); padding-top: 18px; }
+  .toc h2 {
+    font-family: var(--f-mono); font-size: 11px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--accent); margin: 0 0 6px; font-weight: 500;
+  }
+  .toc ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; }
+  @media (min-width: 720px) {
+    .toc ol { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(6, auto); grid-auto-flow: column; column-gap: 48px; }
+  }
+  .toc li { display: block; }
+  .toc li a {
+    display: grid; grid-template-columns: 32px minmax(0,1fr); gap: 12px; align-items: baseline;
+    padding: 13px 2px; min-height: 48px;
+    border-bottom: 1px solid var(--rule-soft);
+    color: var(--ink); text-decoration: none; font-size: 16px; line-height: 1.5;
+    transition: color .15s;
+  }
+  .toc li a .n { font-family: var(--f-mono); font-size: 11px; letter-spacing: .06em; color: var(--ink-faint); }
+  .toc li a:hover { color: var(--accent); }
+  .toc li a:hover .n { color: var(--accent); }
+
+  /* ═══════════  네 권 전체 차례 (표지)  ═══════════ */
+  .allcontents { display: grid; grid-template-columns: 1fr; gap: 34px 48px; max-width: var(--wide); }
+  @media (min-width: 720px) { .allcontents { grid-template-columns: 1fr 1fr; } }
+  .allvol-h {
+    display: flex; align-items: baseline; gap: 10px; text-decoration: none;
+    padding-bottom: 10px; border-bottom: 2px solid var(--card-hue); margin-bottom: 4px;
+  }
+  .allvol-h .num { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--card-hue); }
+  .allvol-h .ttl { font-family: var(--f-display); font-weight: 700; font-size: 19px; color: var(--ink); }
+  .allvol ol { list-style: none; margin: 0; padding: 0; display: grid; }
+  .allvol li a {
+    display: grid; grid-template-columns: 30px minmax(0,1fr); gap: 10px; align-items: baseline;
+    padding: 10px 2px; min-height: 42px; border-bottom: 1px solid var(--rule-soft);
+    color: var(--ink-soft); text-decoration: none; font-size: 14.5px; line-height: 1.5;
+  }
+  .allvol li a .n { font-family: var(--f-mono); font-size: 10px; color: var(--ink-faint); }
+  .allvol li a:hover { color: var(--card-hue); }
+
+  /* ═══════════  휴대폰 상단 바  ═══════════ */
+  .topbar { display: none; }
+  @media (max-width: 1079px) {
+    /* 스크롤을 내려도 목차 바가 끝까지 따라온다 */
+    .topbar {
+      display: block; position: sticky; top: 0; z-index: 40;
+      background: var(--ground); border-bottom: 1px solid var(--rule);
+    }
+    .topbar-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 9px 20px 7px;
+    }
+    .topbar-title {
+      display: flex; align-items: center; gap: 11px; min-width: 0;
+      color: var(--ink); text-decoration: none;
+    }
+    .topbar-name {
+      font-family: var(--f-display); font-weight: 700; font-size: 15px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    @media (max-width: 344px) { .topbar-name { display: none; } }
+    .toc-btn {
+      flex: none; display: flex; align-items: center; gap: 8px; cursor: pointer;
+      font-family: var(--f-body); font-size: 13px; font-weight: 500; color: var(--ink);
+      background: var(--surface); border: 1px solid var(--rule); border-radius: 999px; padding: 8px 15px;
+    }
+    .toc-btn span.bars { display: block; width: 13px; height: 9px; border-top: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; position: relative; }
+    .toc-btn span.bars::after { content: ""; position: absolute; left: 0; top: 3px; width: 100%; height: 1.5px; background: currentColor; }
+    .chips { display: flex; gap: 7px; overflow-x: auto; padding: 0 20px 9px; scrollbar-width: none; }
+    /* 화면이 낮을 때(가로로 눕혔을 때)는 제목 줄만 남긴다 */
+    @media (max-height: 500px) { .chips { display: none; } }
+    .chips::-webkit-scrollbar { display: none; }
+    .chips a {
+      flex: none; display: flex; align-items: center; gap: 7px; white-space: nowrap;
+      font-size: 13px; text-decoration: none; color: var(--ink-soft);
+      background: var(--surface); border: 1px solid var(--rule); border-radius: 999px; padding: 7px 14px;
+    }
+    .chips a i { width: 6px; height: 6px; border-radius: 50%; background: var(--card-hue); flex: none; }
+    .chips a.on { color: var(--ink); font-weight: 600; border-color: var(--card-hue); background: var(--surface-2); }
+  }
+
+  /* ═══════════  차례 시트  ═══════════ */
+  .sheet { display: none; position: fixed; inset: 0; z-index: 60; background: var(--ground); overflow-y: auto; }
+  @media (max-width: 1079px) { .sheet.open { display: block; } }
+  .sheet-bar {
+    position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between;
+    padding: 13px 20px; background: var(--ground); border-bottom: 1px solid var(--rule);
+  }
+  .sheet-bar b { font-family: var(--f-display); font-size: 17px; font-weight: 700; }
+  .sheet-close {
+    cursor: pointer; font-family: var(--f-body); font-size: 13px; color: var(--ink);
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 999px; padding: 8px 16px;
+  }
+  .sheet-body { padding: 24px 20px 60px; }
+  .sheet-label {
+    font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--ink-faint); margin: 0 0 10px;
+  }
+  .sheet-vols { display: grid; gap: 8px; margin-bottom: 34px; }
+  .sheet-vols a {
+    display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink);
+    border: 1px solid var(--rule); border-radius: 4px; padding: 14px 16px; background: var(--surface); font-size: 15px;
+  }
+  .sheet-vols a i { width: 7px; height: 7px; border-radius: 50%; background: var(--card-hue); flex: none; }
+  .sheet-vols a.on { border-color: var(--card-hue); background: var(--surface-2); font-weight: 600; }
+  .sheet-chs { display: grid; border-top: 1px solid var(--rule); }
+  .sheet-chs a {
+    display: grid; grid-template-columns: 32px minmax(0,1fr); gap: 12px; align-items: baseline;
+    padding: 14px 2px; min-height: 50px; border-bottom: 1px solid var(--rule-soft);
+    color: var(--ink); text-decoration: none; font-size: 15.5px; line-height: 1.5;
+  }
+  .sheet-chs a .n { font-family: var(--f-mono); font-size: 10.5px; color: var(--ink-faint); }
+
+  /* ═══════════  장  ═══════════ */
+  .chapter { padding-top: 88px; scroll-margin-top: 24px; }
+  /* 상단 고정 바가 제목을 가리지 않도록 */
+  @media (max-width: 1079px) { .chapter { scroll-margin-top: 112px; } }
+  @media (max-width: 1079px) and (max-height: 500px) { .chapter { scroll-margin-top: 62px; } }
+  .chapter-body { max-width: var(--wide); min-width: 0; }
+  .chapter-eyebrow {
+    font-family: var(--f-mono); font-size: 11px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
+  }
+  .chapter h2 {
+    font-family: var(--f-display); font-weight: 700;
+    font-size: clamp(25px, 2.9vw, 33px); line-height: 1.34; letter-spacing: -.01em;
+    margin: 0 0 26px; padding-bottom: 16px; border-bottom: 1px solid var(--rule);
+    max-width: var(--wide); text-wrap: balance;
+  }
+  .chapter h3 {
+    font-family: var(--f-body); font-weight: 600; font-size: 16.5px; letter-spacing: -.005em;
+    margin: 46px 0 14px; color: var(--ink);
+    display: flex; align-items: baseline; gap: 11px; max-width: var(--measure);
+  }
+  .chapter h3::before { content: ""; width: 6px; height: 6px; flex: none; background: var(--accent); transform: translateY(-3px); }
+
+  p { margin: 0 0 20px; max-width: var(--measure); }
+  .chapter-body > p:last-child { margin-bottom: 0; }
+  a { color: var(--accent); text-underline-offset: .18em; }
+  strong { font-weight: 600; color: var(--ink); }
+  em { font-style: normal; font-family: var(--f-display); }
+  u { text-decoration-color: var(--accent); text-underline-offset: .22em; }
+
+  ul.plain, ol.steps {
+    padding-left: 0; list-style: none; margin: 0 0 22px;
+    display: grid; gap: 11px; max-width: var(--measure);
+  }
+  ul.plain li { padding-left: 19px; position: relative; }
+  ul.plain li::before { content: "—"; position: absolute; left: 0; color: var(--ink-faint); font-family: var(--f-mono); font-size: 13px; }
+  ol.steps { counter-reset: s; gap: 15px; }
+  ol.steps li { counter-increment: s; padding-left: 40px; position: relative; }
+  ol.steps li::before {
+    content: counter(s); position: absolute; left: 0; top: 4px;
+    width: 24px; height: 24px; display: grid; place-items: center;
+    border: 1px solid var(--accent); color: var(--accent); border-radius: 50%;
+    font-family: var(--f-mono); font-size: 11.5px;
+  }
+
+  code {
+    font-family: var(--f-mono); font-size: .855em; background: var(--code-bg);
+    padding: .14em .4em; border-radius: 3px; color: var(--ink);
+  }
+  pre {
+    font-family: var(--f-mono); font-size: 13.5px; line-height: 1.85;
+    background: var(--code-bg); border: 1px solid var(--rule-soft); border-radius: 4px;
+    padding: 20px 22px; margin: 0 0 24px; max-width: var(--mid);
+    overflow-x: auto; color: var(--ink); tab-size: 2;
+  }
+  pre code { background: none; padding: 0; font-size: inherit; }
+  .cm { color: var(--ink-faint); }
+
+  /* ═══════════  나란히 두기  ═══════════ */
+  .demo { margin: 0 0 30px; display: grid; gap: 16px; max-width: var(--wide); }
+  @media (min-width: 1000px) { .demo.split { grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; } }
+  .demo-label {
+    font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-faint); margin-bottom: 9px;
+  }
+  .demo pre { margin: 0; max-width: none; }
+  .demo-why { font-size: 14px; line-height: 1.7; color: var(--ink-soft); margin: 10px 0 0; max-width: none; }
+
+  .say {
+    font-family: var(--f-display); font-size: 17px; line-height: 1.75;
+    padding: 16px 18px; border-radius: 4px;
+    border: 1px solid var(--rule); background: var(--surface);
+  }
+  .say-dim { color: var(--ink-faint); border-style: dashed; background: transparent; }
+  .say-lit { border-left: 2px solid var(--accent); }
+
+  .browser { border: 1px solid var(--rule); border-radius: 5px; overflow: hidden; box-shadow: var(--shadow); background: #FCFCFD; }
+  .browser-bar {
+    background: var(--surface-2); border-bottom: 1px solid var(--rule);
+    padding: 8px 13px; font-family: var(--f-mono); font-size: 10.5px;
+    color: var(--ink-faint); display: flex; align-items: center; gap: 6px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rule); flex: none; }
+  .browser-bar span { margin-left: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .preview {
+    background: #FCFCFD; color: #16181C; padding: 22px 24px;
+    font-family: "Times New Roman", "Apple SD Gothic Neo", serif;
+    font-size: 15px; line-height: 1.55; font-weight: 400;
+  }
+  .preview h1 { font-size: 1.9em; margin: .5em 0; font-weight: 700; font-family: inherit; line-height: 1.25; max-width: none; }
+  .preview h2 { font-size: 1.4em; margin: .7em 0 .4em; font-weight: 700; font-family: inherit; border: 0; padding: 0; max-width: none; }
+  .preview p { margin: 0 0 .9em; max-width: none; }
+  .preview ul { margin: 0 0 .9em; padding-left: 1.6em; }
+  .preview a { color: #1A46C8; }
+  .preview.styled { font-family: var(--f-body); background: #FBF9F5; color: #23262B; font-weight: 400; }
+  .preview.styled h1 { font-family: var(--f-display); font-size: 1.7em; letter-spacing: -.01em; margin: 0 0 .2em; font-weight: 700; }
+  .preview.styled .sub { color: #7C8291; font-size: .85em; margin-bottom: 1.4em; }
+  .preview.styled ul { list-style: none; padding: 0; }
+  .preview.styled li { padding: 9px 0; border-bottom: 1px solid #E7E2D9; }
+
+  /* ═══════════  안내 상자  ═══════════ */
+  .note {
+    border-left: 2px solid var(--accent); background: var(--surface);
+    padding: 18px 22px; margin: 0 0 26px; border-radius: 0 4px 4px 0;
+    font-size: 15.5px; line-height: 1.75; max-width: var(--mid); box-shadow: var(--shadow);
+  }
+  .note p { margin-bottom: 0; max-width: none; }
+  .note .tag {
+    font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 8px;
+  }
+  .note.quiet { border-left-color: var(--ink-faint); }
+  .note.quiet .tag { color: var(--ink-faint); }
+
+  /* ═══════════  표  ═══════════ */
+  .table-wrap {
+    overflow-x: auto; margin: 0 0 28px; max-width: var(--wide);
+    border-top: 1px solid var(--rule);
+    /* 가로로 더 있을 때만 가장자리에 그늘이 진다 */
+    background:
+      linear-gradient(to right, var(--ground), transparent) 0 0 / 20px 100% no-repeat local,
+      linear-gradient(to left, var(--ground), transparent) 100% 0 / 20px 100% no-repeat local,
+      radial-gradient(farthest-side at 0 50%, rgba(33,29,24,.14), transparent) 0 0 / 11px 100% no-repeat scroll,
+      radial-gradient(farthest-side at 100% 50%, rgba(33,29,24,.14), transparent) 100% 0 / 11px 100% no-repeat scroll;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; line-height: 1.7; min-width: 420px; }
+  th, td { text-align: left; padding: 13px 20px 13px 0; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  th {
+    font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-faint); font-weight: 500;
+    padding-top: 12px; padding-bottom: 10px;
+  }
+  td:first-child { color: var(--ink); }
+  td code { white-space: nowrap; }
+
+  /* ═══════════  용어  ═══════════ */
+  dl.glossary { margin: 0; display: grid; max-width: var(--mid); border-top: 1px solid var(--rule); }
+  dl.glossary > div { display: grid; grid-template-columns: 1fr; gap: 3px; padding: 15px 0; border-bottom: 1px solid var(--rule-soft); }
+  @media (min-width: 660px) { dl.glossary > div { grid-template-columns: 158px minmax(0,1fr); gap: 24px; align-items: baseline; } }
+  dl.glossary dt { font-weight: 600; font-size: 15px; }
+  dl.glossary dt small { display: block; font-family: var(--f-mono); font-size: 10px; color: var(--ink-faint); letter-spacing: .06em; font-weight: 400; margin-top: 2px; }
+  dl.glossary dd { margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.72; }
+
+  /* ═══════════  계획표  ═══════════ */
+  .plan { display: grid; margin: 0 0 26px; max-width: var(--mid); border-top: 1px solid var(--rule); }
+  .plan-row { display: grid; grid-template-columns: 96px minmax(0,1fr); gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--rule-soft); align-items: baseline; }
+  .plan-row .day { font-family: var(--f-mono); font-size: 11.5px; color: var(--accent); letter-spacing: .06em; }
+  .plan-row.rest .day { color: var(--ink-faint); }
+  .plan-row .what { font-size: 15.5px; line-height: 1.7; }
+  .plan-row .what small { display: block; color: var(--ink-soft); font-size: 13.5px; line-height: 1.7; margin-top: 3px; }
+
+  /* ═══════════  그대로 쓰는 문장  ═══════════ */
+  .script { display: grid; margin: 0 0 26px; max-width: var(--mid); border-top: 1px solid var(--rule); }
+  .script-item { padding: 20px 0; border-bottom: 1px solid var(--rule-soft); }
+  .script-when { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 10px; }
+  .script-say { font-family: var(--f-display); font-size: 18px; line-height: 1.75; color: var(--ink); padding: 2px 0 2px 18px; border-left: 2px solid var(--accent); }
+  .script-why { margin-top: 10px; font-size: 14.5px; line-height: 1.72; color: var(--ink-soft); max-width: 46em; }
+  .script-why b { font-weight: 600; color: var(--ink); }
+
+  .closing { margin-top: 88px; padding-top: 36px; border-top: 1px solid var(--rule); max-width: var(--measure); }
+  .closing p { font-family: var(--f-display); font-size: 18px; line-height: 1.9; color: var(--ink-soft); max-width: none; }
+  .closing p:first-child { color: var(--ink); }
+
+  .next {
+    display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+    margin-top: 40px; padding-top: 26px; border-top: 1px solid var(--rule-soft); max-width: var(--wide);
+  }
+  .next-label { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); }
+  .next a {
+    text-decoration: none; font-size: 15px; padding: 8px 16px;
+    border: 1px solid var(--rule); border-radius: 3px; background: var(--surface);
+    color: var(--ink); transition: border-color .15s, color .15s;
+  }
+  .next a:hover { border-color: var(--card-hue, var(--accent)); color: var(--card-hue, var(--accent)); }
+
+  a:focus-visible, .card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+  ::selection { background: var(--surface-2); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+  }
+  @media (max-width: 640px) {
+    body { font-size: 16.5px; }
+    .shell { padding: 0 20px 100px; }
+    .cover { padding-top: 56px; }
+    .chapter { padding-top: 64px; }
+    .plan-row { grid-template-columns: 78px minmax(0,1fr); gap: 14px; }
+  }
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add("js");</script>
+
+<div class="progress" aria-hidden="true"><i></i></div>
+
+<header class="topbar">
+  <div class="topbar-row">
+    <a class="topbar-title" href="#cover"><span class="logo logo-bar" role="img" aria-label="최수빈"></span><span class="topbar-name">AI와 동행하는 방법</span></a>
+    <button class="toc-btn" type="button" aria-expanded="false" aria-controls="sheet"><span class="bars"></span>차례</button>
+  </div>
+  <nav class="chips" aria-label="권">
+    <a href="#cover" data-vol="v0" class="c-series"><i></i>표지</a>
+    <a href="#v1" data-vol="v1" class="c-moss"><i></i>1권</a>
+    <a href="#v2" data-vol="v2" class="c-persimmon"><i></i>2권</a>
+    <a href="#v3" data-vol="v3" class="c-plum"><i></i>3권</a>
+    <a href="#v4" data-vol="v4" class="c-dusk"><i></i>4권</a>
+  </nav>
+</header>
+
+<div class="sheet" id="sheet">
+  <div class="sheet-bar">
+    <b>차례</b>
+    <button class="sheet-close" type="button">닫기</button>
+  </div>
+  <div class="sheet-body">
+    <div class="sheet-label">권 고르기</div>
+    <nav class="sheet-vols">
+      <a href="#cover" data-vol="v0" class="c-series"><i></i>표지</a>
+      <a href="#v1" data-vol="v1" class="c-moss"><i></i>1권 · AI에게 질문하는 법</a>
+      <a href="#v2" data-vol="v2" class="c-persimmon"><i></i>2권 · 아이디어 꺼내는 법</a>
+      <a href="#v3" data-vol="v3" class="c-plum"><i></i>3권 · 웹사이트 만들기</a>
+      <a href="#v4" data-vol="v4" class="c-dusk"><i></i>4권 · 앱 만들기</a>
+    </nav>
+    <div class="sheet-label sheet-chs-label">이 권의 차례</div>
+    <nav class="sheet-chs"></nav>
+  </div>
+</div>
+
+<div class="shell">
+
+<aside class="side">
+  <div class="side-inner">
+    <a class="side-logo" href="#cover" aria-label="표지로"><span class="logo logo-side" role="img" aria-label="최수빈"></span></a>
+    <a class="side-title" href="#cover">AI와 동행하는 방법</a>
+    <div class="side-sub">비전공자를 위한 실용 시리즈</div>
+    <nav class="vol-nav" aria-label="권">
+      <a href="#cover" data-vol="v0" class="c-series"><i></i><span>표지</span></a>
+      <a href="#v1" data-vol="v1" class="c-moss"><i></i><span>1권 · AI에게 질문하는 법</span></a>
+      <a href="#v2" data-vol="v2" class="c-persimmon"><i></i><span>2권 · 아이디어 꺼내는 법</span></a>
+      <a href="#v3" data-vol="v3" class="c-plum"><i></i><span>3권 · 웹사이트 만들기</span></a>
+      <a href="#v4" data-vol="v4" class="c-dusk"><i></i><span>4권 · 앱 만들기</span></a>
+    </nav>
+    <nav class="ch-nav" aria-label="이 권의 차례"></nav>
+  </div>
+</aside>
+
+<main class="doc">
+
+<section class="vol" id="v0" data-hue="series">
+
+  <header class="cover">
+    <span class="logo logo-cover" role="img" aria-label="최수빈"></span>
+    <div class="eyebrow">네 권으로 된 실용 시리즈</div>
+    <h1>AI와 동행하는 방법</h1>
+    <p class="lede">코딩도 기획도 배운 적 없는 사람이 AI와 함께 무언가를 만들어 내보내기까지, 실제로 필요한 것만 네 권에 나눠 담았습니다. 이론은 최소한만 두고, 오늘 그대로 써먹을 수 있는 문장과 절차 위주로 썼습니다.</p>
+    <div class="cover-meta">
+      <div><b>읽는 사람</b> 비전공자 · 처음 만드는 사람</div>
+      <div><b>전제 지식</b> 없음</div>
+      <div><b>전체</b> 네 권 · 약 두 시간</div>
+    </div>
+  </header>
+
+  <div class="cards">
+    <a class="card c-moss" href="#v1" data-vol="v1">
+      <div class="num">제1권</div>
+      <h3>AI에게 질문하는 법</h3>
+      <p>무엇을 시킬 수 있는지, 어떻게 말해야 하는지. 그대로 복사해 쓰는 요청 틀 여덟 개.</p>
+      <div class="meta">11장 · 25분</div>
+    </a>
+    <a class="card c-persimmon" href="#v2" data-vol="v2">
+      <div class="num">제2권</div>
+      <h3>아이디어 꺼내는 법</h3>
+      <p>모으고 · 쏟고 · 고르고 · 키우는 네 단계. 발상 기술 여덟과 고르는 체 셋.</p>
+      <div class="meta">11장 · 25분</div>
+    </a>
+    <a class="card c-plum" href="#v3" data-vol="v3">
+      <div class="num">제3권</div>
+      <h3>웹사이트 만들기</h3>
+      <p>웹사이트는 결국 폴더 하나다. HTML·CSS의 최소 문법에서 주소를 갖기까지.</p>
+      <div class="meta">11장 · 40분</div>
+    </a>
+    <a class="card c-dusk" href="#v4" data-vol="v4">
+      <div class="num">제4권</div>
+      <h3>앱 만들기</h3>
+      <p>'앱'이라는 말의 세 가지 뜻을 가르는 데서 시작해, 가장 빠른 길로 첫 앱까지.</p>
+      <div class="meta">11장 · 30분</div>
+    </a>
+  </div>
+
+  <section class="chapter" id="v0toc">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">전체 차례</div>
+      <h2>네 권의 모든 장</h2>
+      <p>어느 장이든 눌러 바로 펴실 수 있습니다.</p>
+      <div class="allcontents">
+    <div class="allvol c-moss">
+      <a class="allvol-h" href="#v1"><span class="num">제1권</span><span class="ttl">AI에게 질문하는 법</span></a>
+      <ol>
+        <li><a href="#v1c0"><span class="n">00</span><span class="t">검색창이 아니라 사람에 가깝다</span></a></li>
+        <li><a href="#v1c1"><span class="n">01</span><span class="t">잘하는 일과 못하는 일</span></a></li>
+        <li><a href="#v1c2"><span class="n">02</span><span class="t">질문이 아니라 의뢰서를 쓴다</span></a></li>
+        <li><a href="#v1c3"><span class="n">03</span><span class="t">그대로 쓰는 요청 틀 여덟</span></a></li>
+        <li><a href="#v1c4"><span class="n">04</span><span class="t">되묻게 만들기</span></a></li>
+        <li><a href="#v1c5"><span class="n">05</span><span class="t">결과를 고치는 말 여섯</span></a></li>
+        <li><a href="#v1c6"><span class="n">06</span><span class="t">대화를 이어가는 법</span></a></li>
+        <li><a href="#v1c7"><span class="n">07</span><span class="t">확인해야 하는 것</span></a></li>
+        <li><a href="#v1c8"><span class="n">08</span><span class="t">넣지 말아야 할 것</span></a></li>
+        <li><a href="#v1c9"><span class="n">09</span><span class="t">오늘 해 볼 다섯 가지</span></a></li>
+        <li><a href="#v1c10"><span class="n">부록</span><span class="t">한 줄 명령 스물</span></a></li>
+      </ol>
+    </div>
+    <div class="allvol c-persimmon">
+      <a class="allvol-h" href="#v2"><span class="num">제2권</span><span class="ttl">아이디어 꺼내는 법</span></a>
+      <ol>
+        <li><a href="#v2c0"><span class="n">00</span><span class="t">떠오르는 게 아니라 꺼내는 것</span></a></li>
+        <li><a href="#v2c1"><span class="n">01</span><span class="t">모으기 · 하루 세 줄</span></a></li>
+        <li><a href="#v2c2"><span class="n">02</span><span class="t">쏟기 · 양이 질을 만든다</span></a></li>
+        <li><a href="#v2c3"><span class="n">03</span><span class="t">발상 기술 여덟</span></a></li>
+        <li><a href="#v2c4"><span class="n">04</span><span class="t">고르기 · 세 개의 체</span></a></li>
+        <li><a href="#v2c5"><span class="n">05</span><span class="t">키우기 · 한 문장에서 형태로</span></a></li>
+        <li><a href="#v2c6"><span class="n">06</span><span class="t">막혔을 때 여섯 처방</span></a></li>
+        <li><a href="#v2c7"><span class="n">07</span><span class="t">AI를 발상 상대로 쓰는 법</span></a></li>
+        <li><a href="#v2c8"><span class="n">08</span><span class="t">참고와 표절 사이</span></a></li>
+        <li><a href="#v2c9"><span class="n">09</span><span class="t">2주 실험</span></a></li>
+        <li><a href="#v2c10"><span class="n">부록</span><span class="t">발상 질문 스물넷</span></a></li>
+      </ol>
+    </div>
+    <div class="allvol c-plum">
+      <a class="allvol-h" href="#v3"><span class="num">제3권</span><span class="ttl">웹사이트 만들기</span></a>
+      <ol>
+        <li><a href="#v3c0"><span class="n">00</span><span class="t">시작하기 전에 — 우리 둘의 역할</span></a></li>
+        <li><a href="#v3c1"><span class="n">01</span><span class="t">웹사이트는 결국 폴더 하나다</span></a></li>
+        <li><a href="#v3c2"><span class="n">02</span><span class="t">세 개의 언어: 뼈대 · 결 · 움직임</span></a></li>
+        <li><a href="#v3c3"><span class="n">03</span><span class="t">HTML — 글에 뼈를 세우는 일</span></a></li>
+        <li><a href="#v3c4"><span class="n">04</span><span class="t">CSS — 같은 글을 다르게 입히는 일</span></a></li>
+        <li><a href="#v3c5"><span class="n">05</span><span class="t">이름과 길: 파일명과 경로</span></a></li>
+        <li><a href="#v3c6"><span class="n">06</span><span class="t">인터넷에 올리기 — 주소가 생기는 순간</span></a></li>
+        <li><a href="#v3c7"><span class="n">07</span><span class="t">저에게 말 거는 법</span></a></li>
+        <li><a href="#v3c8"><span class="n">08</span><span class="t">자주 마주칠 단어 스물넷</span></a></li>
+        <li><a href="#v3c9"><span class="n">09</span><span class="t">첫 2주, 하루 30분</span></a></li>
+        <li><a href="#v3c10"><span class="n">부록</span><span class="t">지금은 몰라도 되는 것들</span></a></li>
+      </ol>
+    </div>
+    <div class="allvol c-dusk">
+      <a class="allvol-h" href="#v4"><span class="num">제4권</span><span class="ttl">앱 만들기</span></a>
+      <ol>
+        <li><a href="#v4c0"><span class="n">00</span><span class="t">'앱'이라는 말의 세 가지 뜻</span></a></li>
+        <li><a href="#v4c1"><span class="n">01</span><span class="t">만들기 전에 채우는 한 문장</span></a></li>
+        <li><a href="#v4c2"><span class="n">02</span><span class="t">코드보다 먼저, 화면 세 장</span></a></li>
+        <li><a href="#v4c3"><span class="n">03</span><span class="t">가장 빠른 길 · 웹앱</span></a></li>
+        <li><a href="#v4c4"><span class="n">04</span><span class="t">데이터는 어디에 남는가</span></a></li>
+        <li><a href="#v4c5"><span class="n">05</span><span class="t">코드 없이 만드는 도구들</span></a></li>
+        <li><a href="#v4c6"><span class="n">06</span><span class="t">진짜 폰 앱이 필요할 때</span></a></li>
+        <li><a href="#v4c7"><span class="n">07</span><span class="t">저와 함께 만드는 순서</span></a></li>
+        <li><a href="#v4c8"><span class="n">08</span><span class="t">처음 만드는 사람이 밟는 함정 여덟</span></a></li>
+        <li><a href="#v4c9"><span class="n">09</span><span class="t">첫 앱 4주</span></a></li>
+        <li><a href="#v4c10"><span class="n">부록</span><span class="t">앱 용어 스물</span></a></li>
+      </ol>
+    </div>
+  </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="v0c0">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">읽는 법</div>
+      <h2>어디부터 읽어도 됩니다</h2>
+      <p>네 권은 이어져 있지만 묶여 있지는 않습니다. <strong>지금 하려는 일이 있는 자리에서 펴시면 됩니다.</strong> 만들 것이 이미 정해져 있다면 3권이나 4권부터 시작하셔도 괜찮습니다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>지금 이런 자리라면</th><th>여기부터</th></tr>
+          <tr><td>AI를 어떻게 써야 할지 감이 없다</td><td>1권</td></tr>
+          <tr><td>만들고 싶은데 무엇을 만들지 모르겠다</td><td>2권</td></tr>
+          <tr><td>내 이름의 사이트를 갖고 싶다</td><td>3권</td></tr>
+          <tr><td>기록하거나 계산하는 것을 만들고 싶다</td><td>4권 (3권을 먼저 훑으면 수월합니다)</td></tr>
+        </table>
+      </div>
+
+      <p>다만 순서대로 읽으실 거라면 1권이 가장 도움이 됩니다. 나머지 세 권은 전부 <strong>AI와 함께 만드는 것</strong>을 전제로 쓰였고, 그 대화법이 1권에 있기 때문입니다.</p>
+
+      <h3>네 권을 관통하는 한 문장</h3>
+      <p><em>작게 만들어 일찍 내보내고, 반응을 보고 다시 만든다.</em> 이 문장은 네 권 어디에서도 다시 나옵니다. 글도 그렇게 쓰이고, 아이디어도 그렇게 자라고, 앱도 그렇게 만들어집니다.</p>
+
+      <div class="note quiet">
+        <span class="tag">이 시리즈의 약속</span>
+        <p>배경 지식과 이론은 최소한만 둡니다. 대신 <strong>그대로 복사해 쓸 수 있는 문장</strong>, <strong>순서가 정해진 절차</strong>, <strong>고를 수 있게 정리한 표</strong>를 중심에 둡니다. 읽고 나서 무엇을 해야 할지 모르겠는 장이 있다면, 그건 이 시리즈의 잘못입니다.</p>
+      </div>
+    </div>
+  </section>
+
+</section>
+
+<section class="vol" id="v1" data-hue="moss">
+
+  <header class="cover">
+    <div class="eyebrow">제1권</div>
+    <h1>AI에게 질문하는 법</h1>
+    <p class="lede">무엇을 시킬 수 있는지, 어떻게 말해야 하는지 모르는 자리에서 시작합니다. 개념 설명은 최소한만 두고, 오늘 그대로 복사해 쓸 수 있는 문장들로 채웠습니다.</p>
+    <div class="cover-meta">
+      <div><b>읽는 데</b> 25분</div>
+      <div><b>필요한 것</b> 없음</div>
+      <div><b>얻는 것</b> 요청 틀 여덟 · 고치는 말 여섯</div>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <h2>차례</h2>
+    <ol>
+      <li><a href="#v1c0"><span class="n">00</span><span class="t">검색창이 아니라 사람에 가깝다</span></a></li>
+      <li><a href="#v1c1"><span class="n">01</span><span class="t">잘하는 일과 못하는 일</span></a></li>
+      <li><a href="#v1c2"><span class="n">02</span><span class="t">질문이 아니라 의뢰서를 쓴다</span></a></li>
+      <li><a href="#v1c3"><span class="n">03</span><span class="t">그대로 쓰는 요청 틀 여덟</span></a></li>
+      <li><a href="#v1c4"><span class="n">04</span><span class="t">되묻게 만들기</span></a></li>
+      <li><a href="#v1c5"><span class="n">05</span><span class="t">결과를 고치는 말 여섯</span></a></li>
+      <li><a href="#v1c6"><span class="n">06</span><span class="t">대화를 이어가는 법</span></a></li>
+      <li><a href="#v1c7"><span class="n">07</span><span class="t">확인해야 하는 것</span></a></li>
+      <li><a href="#v1c8"><span class="n">08</span><span class="t">넣지 말아야 할 것</span></a></li>
+      <li><a href="#v1c9"><span class="n">09</span><span class="t">오늘 해 볼 다섯 가지</span></a></li>
+      <li><a href="#v1c10"><span class="n">부록</span><span class="t">한 줄 명령 스물</span></a></li>
+    </ol>
+  </nav>
+
+  <!-- 00 -->
+  <section class="chapter" id="v1c0">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">00</div>
+      <h2>검색창이 아니라 사람에 가깝다</h2>
+      <p>AI를 검색창처럼 쓰면 검색만큼의 답이 나옵니다. 짧게 묻고 짧게 받고, 그래서 별것 아니라고 느끼게 됩니다. 그런데 같은 도구를 <strong>함께 일하는 사람</strong>처럼 대하면 결과가 달라집니다. 사정을 설명하고, 무엇을 해 달라고 부탁하고, 마음에 안 드는 부분을 짚어 다시 시키는 방식입니다.</p>
+      <p>차이는 능력이 아니라 <strong>말을 거는 방식</strong>에 있습니다. 이 권은 그 방식만 다룹니다. AI가 어떻게 만들어졌는지, 어떤 원리로 작동하는지는 한 줄도 설명하지 않습니다. 몰라도 일하는 데 지장이 없기 때문입니다.</p>
+
+      <div class="note">
+        <span class="tag">이 권에서 가져가실 것</span>
+        <p>시킬 수 있는 일의 목록(1장), 요청을 쓰는 다섯 조각(2장), 그대로 복사해 쓰는 문장 여덟 개(3장), 결과가 어긋났을 때 고치는 말 여섯 개(5장). 나머지는 필요할 때 펴 보시면 되는 자리입니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 -->
+  <section class="chapter" id="v1c1">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">01</div>
+      <h2>잘하는 일과 못하는 일</h2>
+      <p>가장 먼저 필요한 건 원리가 아니라 <strong>목록</strong>입니다. 무엇을 시킬 수 있는지 알면 그때부터 쓰게 됩니다.</p>
+
+      <h3>잘하는 일</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>시킬 수 있는 일</th><th>이런 자리에서</th></tr>
+          <tr><td>초안 쓰기</td><td>빈 화면 앞에서 첫 줄이 안 나올 때</td></tr>
+          <tr><td>고쳐 쓰기 · 교정</td><td>내가 쓴 글의 오타와 비문을 잡을 때</td></tr>
+          <tr><td>요약</td><td>긴 문서·회의록·기사에서 핵심만 볼 때</td></tr>
+          <tr><td>형식 바꾸기</td><td>흩어진 메모를 표로, 표를 문장으로</td></tr>
+          <tr><td>분류하고 이름 붙이기</td><td>목록이 뒤죽박죽일 때</td></tr>
+          <tr><td>후보 만들기</td><td>제목·이름·문구를 여러 개 놓고 고르고 싶을 때</td></tr>
+          <tr><td>설명해 주기</td><td>모르는 단어나 개념을 쉬운 말로 듣고 싶을 때</td></tr>
+          <tr><td>역할 맡기</td><td>인터뷰어·반대자·독자가 되어 달라고 할 때</td></tr>
+          <tr><td>빠진 것 찾기</td><td>내 계획이나 글을 검토받고 싶을 때</td></tr>
+          <tr><td>번역과 코드</td><td>다른 언어로, 또는 컴퓨터가 알아듣는 말로</td></tr>
+        </table>
+      </div>
+
+      <h3>못하거나 조심해야 하는 일</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>이런 것은</th><th>왜</th></tr>
+          <tr><td>오늘의 사실 — 시세, 뉴스, 영업시간</td><td>배운 시점 이후를 모릅니다. 검색 기능이 붙어 있어도 한 번 더 확인해야 합니다</td></tr>
+          <tr><td>정확한 숫자 계산과 통계</td><td>그럴듯한 숫자를 만들어 낼 수 있습니다</td></tr>
+          <tr><td>실제 인용문 · 쪽수 · 링크 주소</td><td>존재하지 않는 문장과 주소를 지어내기 쉽습니다</td></tr>
+          <tr><td>내 취향과 결정</td><td>고르는 일은 결국 사람의 몫입니다</td></tr>
+          <tr><td>법률 · 의료 · 세무의 최종 판단</td><td>참고까지만. 판단은 자격 있는 사람에게</td></tr>
+        </table>
+      </div>
+
+      <div class="note quiet">
+        <span class="tag">한 줄 원칙</span>
+        <p><strong>내가 확인할 수 있는 것을 시키고, 확인할 수 없는 것은 맡기지 않습니다.</strong> 내가 쓴 글을 다듬는 일은 결과를 바로 판단할 수 있습니다. 모르는 분야의 통계는 판단할 수 없습니다. 이 선만 지키면 크게 어긋날 일이 없습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="chapter" id="v1c2">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">02</div>
+      <h2>질문이 아니라 의뢰서를 쓴다</h2>
+      <p>좋은 요청은 질문보다 <strong>의뢰서</strong>에 가깝습니다. 처음 만난 사람에게 일을 부탁한다고 생각하시면 정확합니다. 그 사람은 유능하지만 내 사정을 하나도 모릅니다.</p>
+
+      <h3>다섯 조각</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>조각</th><th>무엇을 적나</th><th>예</th></tr>
+          <tr><td>맥락</td><td>왜 필요한지, 어떤 상황인지</td><td>동네 책방을 소개하려고 해</td></tr>
+          <tr><td>역할</td><td>어떤 사람으로 대답할지</td><td>여행 잡지 기자처럼</td></tr>
+          <tr><td>할 일</td><td>하나의 동사로</td><td>소개 글을 써 줘</td></tr>
+          <tr><td>형식</td><td>길이·구조·개수</td><td>900자, 문단 넷</td></tr>
+          <tr><td>조건</td><td>피할 것, 지킬 것</td><td>광고 같은 표현은 빼고</td></tr>
+        </table>
+      </div>
+      <p>다섯 개를 다 넣어야 하는 건 아닙니다. <strong>맥락과 형식</strong> 두 개만 붙여도 결과가 눈에 띄게 달라집니다. 나머지는 필요할 때 얹으면 됩니다.</p>
+
+      <h3>흐린 요청과 또렷한 요청</h3>
+      <div class="demo split">
+        <div>
+          <div class="demo-label">흐린 요청</div>
+          <div class="say say-dim">"책방 소개 글 써 줘."</div>
+          <p class="demo-why">무난하고 아무 데나 붙는 글이 나옵니다. 어디를 고쳐야 할지도 알기 어렵습니다.</p>
+        </div>
+        <div>
+          <div class="demo-label">또렷한 요청</div>
+          <div class="say say-lit">"포항의 작은 책방을 소개하는 글을 쓰려고 해. 읽는 사람은 여행 온 20~30대야. 900자 정도, 문단 넷, 마지막 문단에 찾아가는 길. 광고 문구 같은 표현은 빼 줘."</div>
+          <p class="demo-why">길이·독자·구조가 정해져 있어, 마음에 안 드는 부분을 곧바로 짚을 수 있습니다.</p>
+        </div>
+      </div>
+
+      <p>글자 수가 늘어난 만큼 좋아진 게 아닙니다. <strong>판단할 수 있는 기준이 생겨서</strong> 좋아진 것입니다. 요청에 기준을 적어 두면, 결과를 볼 때 무엇이 어긋났는지 바로 보입니다.</p>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="chapter" id="v1c3">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">03</div>
+      <h2>그대로 쓰는 요청 틀 여덟</h2>
+      <p>이 장은 읽는 자리라기보다 <strong>꺼내 쓰는 자리</strong>입니다. 대괄호 안만 바꾸면 그대로 쓰실 수 있습니다.</p>
+
+      <div class="script">
+        <div class="script-item">
+          <div class="script-when">요약</div>
+          <div class="script-say">"이 글을 세 문단으로 요약해 줘. 각 문단 첫 문장에 핵심을 두고, 원문에 없는 말은 넣지 마."</div>
+          <div class="script-why">마지막 조건이 중요합니다. 이 말이 없으면 요약에 없던 해석이 슬쩍 섞입니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">초안</div>
+          <div class="script-say">"[주제]에 대해 [분량] 초안을 써 줘. 읽는 사람은 [독자]이고, 목적은 [목적]이야. 서로 다른 방향으로 세 가지 버전을 줘."</div>
+          <div class="script-why">하나만 받으면 그것에 갇힙니다. 세 개를 받아 고르는 편이 언제나 낫습니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">다듬기</div>
+          <div class="script-say">"이 글의 뜻과 목소리는 그대로 두고 문장만 다듬어 줘. 새로 쓰거나 늘리지는 말고, 고친 자리는 따로 알려 줘."</div>
+          <div class="script-why">내가 쓴 글을 맡길 때 가장 중요한 문장입니다. 이 조건이 없으면 문체가 평평하게 눌립니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">아이디어</div>
+          <div class="script-say">"[주제]에 쓸 만한 방향을 열다섯 개 짧게 나열해 줘. 평범한 것 다섯, 조금 튀는 것 다섯, 이상한 것 다섯으로 나눠서."</div>
+          <div class="script-why">그냥 시키면 무난한 것만 나옵니다. 칸을 나눠 주면 이상한 칸을 채우려고 멀리까지 갑니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">정리</div>
+          <div class="script-say">"아래 메모를 표로 정리해 줘. 열은 [항목·내용·해야 할 일]로 하고, 빠진 칸은 비워 둬."</div>
+          <div class="script-why">"빠진 칸은 비워 둬"가 핵심입니다. 이 말이 없으면 없는 내용을 채워 넣습니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">검토</div>
+          <div class="script-say">"이 계획에서 빠진 것과 위험한 것을 찾아 줘. 좋은 점은 말하지 말고, 걸리는 것만."</div>
+          <div class="script-why">칭찬을 막아 두지 않으면 앞부분이 전부 칭찬으로 채워집니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">설명</div>
+          <div class="script-say">"[모르는 것]을 중학생에게 설명하듯 다섯 문장으로 알려 줘. 비유를 하나 들고, 자주 하는 오해도 하나 짚어 줘."</div>
+          <div class="script-why">'오해 하나'를 함께 시키면 설명이 훨씬 또렷해집니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">반대</div>
+          <div class="script-say">"이 주장에 대해 가장 강한 반론 세 가지를 만들어 줘. 나를 배려하지 말고."</div>
+          <div class="script-why">발표나 제안을 앞두고 한 번 맞아 보는 자리입니다. 여기서 아픈 편이 낫습니다.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="chapter" id="v1c4">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">04</div>
+      <h2>되묻게 만들기</h2>
+      <p>이 권에서 하나만 가져가신다면 이 장을 권합니다. 무엇을 원하는지 스스로도 또렷하지 않을 때가 많습니다. 그럴 때는 답을 받지 말고 <strong>질문을 받으시면 됩니다.</strong></p>
+
+      <div class="script">
+        <div class="script-item">
+          <div class="script-when">시작하기 전에</div>
+          <div class="script-say">"바로 쓰지 말고, 내가 놓친 걸 알기 위해 질문 세 개만 먼저 해 줘."</div>
+          <div class="script-why">세 개라고 개수를 정하는 게 좋습니다. 열 개가 오면 답하다 지칩니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">일이 클 때</div>
+          <div class="script-say">"이 일을 시작하려면 네가 알아야 할 것들을 목록으로 만들어 줘. 내가 하나씩 채울게."</div>
+          <div class="script-why">막막한 일이 답할 수 있는 빈칸으로 바뀝니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">결정이 필요할 때</div>
+          <div class="script-say">"선택지 세 개를 장단점과 함께 주고, 그중 하나를 추천해 줘. 왜 그걸 골랐는지도."</div>
+          <div class="script-why">"추천해 줘"를 빼면 끝없이 균형 잡힌 설명만 돌아옵니다. 고르게 하고, 그 이유를 보고 판단하시면 됩니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">방향이 흐려질 때</div>
+          <div class="script-say">"지금까지 내가 말한 것으로 미루어, 내가 진짜 원하는 게 뭐라고 생각해?"</div>
+          <div class="script-why">빗나가면 그것대로 좋습니다. 아니라고 말하는 순간 내 기준이 또렷해집니다.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="chapter" id="v1c5">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">05</div>
+      <h2>결과를 고치는 말 여섯</h2>
+      <p>첫 결과가 마음에 안 드는 건 실패가 아니라 <strong>기본값</strong>입니다. 초안이 한 번에 나오지 않는 것과 같습니다. 중요한 건 다시 시키는 방식입니다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>이럴 때</th><th>이렇게</th></tr>
+          <tr><td>말이 늘어질 때</td><td>"절반 길이로 줄여 줘. 뜻은 그대로 두고."</td></tr>
+          <tr><td>뻔할 때</td><td>"예를 하나 들어 줘. 실제로 있을 법한 걸로."</td></tr>
+          <tr><td>말투가 안 맞을 때</td><td>"조금 더 담담하게. 감탄사와 느낌표는 빼고."</td></tr>
+          <tr><td>근거가 없을 때</td><td>"각 문장에 근거를 붙이고, 확실하지 않은 건 표시해 줘."</td></tr>
+          <tr><td>방향 자체가 아닐 때</td><td>"이건 아니야. 완전히 다른 방향으로 세 개만 다시."</td></tr>
+          <tr><td>일부만 아쉬울 때</td><td>"두 번째 문단만 다시 써 줘. 나머지는 그대로 두고."</td></tr>
+        </table>
+      </div>
+
+      <div class="note">
+        <span class="tag">가장 자주 쓰게 되는 것</span>
+        <p>맨 아래 <strong>"여기만 다시"</strong>입니다. 처음부터 다시 시키면 마음에 들었던 부분까지 사라집니다. 좋은 자리는 지키고 걸리는 자리만 짚는 편이, 결국 원하는 곳에 빨리 닿습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="chapter" id="v1c6">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">06</div>
+      <h2>대화를 이어가는 법</h2>
+
+      <h3>한 대화에 한 가지 일</h3>
+      <p>주제가 바뀌면 새 대화를 여시는 편이 낫습니다. 아침에 글 이야기를 하다가 오후에 다른 일을 같은 창에서 물으면, 앞의 이야기가 뒤의 답에 섞여 듭니다. 대화창은 아껴 쓰는 물건이 아니니 얼마든지 새로 여셔도 됩니다.</p>
+
+      <h3>길어진 대화는 흐려집니다</h3>
+      <p>대화가 길어지면 앞에서 정한 것들이 점점 희미해집니다. 이럴 때 쓰는 방법이 있습니다.</p>
+      <div class="script">
+        <div class="script-item">
+          <div class="script-when">대화가 길어졌을 때</div>
+          <div class="script-say">"지금까지 정한 것을 목록으로 정리해 줘. 다음 대화에 그대로 붙여 쓸 수 있게."</div>
+          <div class="script-why">그 목록을 복사해 새 대화 첫머리에 붙이면, 흐려진 기억 없이 이어서 일할 수 있습니다.</div>
+        </div>
+      </div>
+
+      <h3>잘 통한 문장은 모아 둡니다</h3>
+      <p>원하던 결과가 나왔다면, 그때 쓴 <strong>요청 문장을 따로 저장</strong>해 두시길 권합니다. 메모장 한 장이면 충분합니다. 두세 달 지나면 나만의 요청 틀 모음이 생기고, 그게 어떤 강의보다 실용적인 자산이 됩니다.</p>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section class="chapter" id="v1c7">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">07</div>
+      <h2>확인해야 하는 것</h2>
+      <p>AI는 모를 때 "모르겠다"고 말하는 대신, <strong>그럴듯한 것으로 빈칸을 메우는</strong> 성질이 있습니다. 거짓말을 하려는 게 아니라 문장을 이어 가는 방식이 그렇습니다. 그래서 가장 자신 있어 보이는 문장이 가장 위험할 때가 있습니다.</p>
+
+      <h3>반드시 눈으로 확인할 것</h3>
+      <ul class="plain">
+        <li><strong>숫자와 통계</strong> — 그럴듯한 수치가 만들어질 수 있습니다.</li>
+        <li><strong>인용문과 출처</strong> — 없는 문장이 있는 책에 붙기도 합니다.</li>
+        <li><strong>사람 이름과 이력</strong> — 실존 인물에 없던 경력이 붙는 일이 흔합니다.</li>
+        <li><strong>날짜와 최신 정보</strong> — 최근 일일수록 어긋납니다.</li>
+        <li><strong>링크 주소</strong> — 열리지 않는 주소가 만들어질 수 있으니 눌러 보셔야 합니다.</li>
+      </ul>
+
+      <h3>확인하는 습관 셋</h3>
+      <ol class="steps">
+        <li>받은 답에 이어서 <strong>"이 중에서 확실하지 않은 부분을 표시해 줘"</strong>라고 한 번 더 시킵니다.</li>
+        <li>출처가 붙어 있으면 <strong>직접 눌러 봅니다.</strong> 링크가 열리는지, 그 안에 정말 그 내용이 있는지.</li>
+        <li>남에게 보여줄 것이라면 <strong>다른 곳에서 한 번 더</strong> 확인합니다.</li>
+      </ol>
+
+      <div class="note quiet">
+        <span class="tag">기억해 두면 좋은 감각</span>
+        <p>내가 판단할 수 있는 일에는 편하게 쓰고, 판단할 수 없는 일에는 반드시 확인 한 번을 얹습니다. 이 두 가지만 지키면 대부분의 사고는 일어나지 않습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section class="chapter" id="v1c8">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">08</div>
+      <h2>넣지 말아야 할 것</h2>
+      <p>대화창에 무엇을 적어도 되는지는 한 번 정리해 두면 계속 편합니다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>넣지 않습니다</th><th>넣어도 됩니다</th></tr>
+          <tr><td>주민등록번호, 계좌·카드 번호, 비밀번호</td><td>내가 쓴 글과 메모</td></tr>
+          <tr><td>남의 연락처·주소·병력 같은 개인정보</td><td>이미 공개된 자료</td></tr>
+          <tr><td>회사 기밀, 계약서 원문, 미공개 자료</td><td>이름을 지운 채 정리한 상황</td></tr>
+          <tr><td>남의 글 전체를 올려 "이대로 써 줘"</td><td>참고할 글의 일부와 내 감상</td></tr>
+        </table>
+      </div>
+
+      <p>회사나 기관의 자료를 다루실 때는 그곳의 방침을 먼저 확인하시는 편이 안전합니다. 개인 작업이라면 크게 걱정하실 일은 없고, <strong>남의 것과 내 것을 구분하는 선</strong>만 지키시면 충분합니다.</p>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section class="chapter" id="v1c9">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">09</div>
+      <h2>오늘 해 볼 다섯 가지</h2>
+      <p>읽은 것은 하루면 흐려집니다. 오늘 안에 다섯 개만 해 보시면 몸에 남습니다. 전부 5분 안쪽입니다.</p>
+
+      <div class="plan">
+        <div class="plan-row"><div class="day">하나</div><div class="what">오늘 쓴 메모를 붙여 넣고 "표로 정리해 줘"<small>흩어진 것이 정리되는 감각을 먼저 겪는 게 좋습니다.</small></div></div>
+        <div class="plan-row"><div class="day">둘</div><div class="what">모르는 단어 하나를 "중학생에게 설명하듯"<small>어려운 설명을 참고 읽던 습관이 여기서 끊깁니다.</small></div></div>
+        <div class="plan-row"><div class="day">셋</div><div class="what">쓰다 만 글에 "질문 세 개만 먼저 해 줘"<small>4장의 기술입니다. 오늘 한 번은 꼭 써 보시길 권합니다.</small></div></div>
+        <div class="plan-row"><div class="day">넷</div><div class="what">오늘 결정할 일에 "선택지 셋과 추천"<small>작은 결정으로 해 보셔도 됩니다. 점심 메뉴도 괜찮습니다.</small></div></div>
+        <div class="plan-row"><div class="day">다섯</div><div class="what">마음에 든 요청 문장을 메모장에 저장<small>오늘의 다섯 가지 중 이게 가장 오래 남습니다.</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 부록 -->
+  <section class="chapter" id="v1c10">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">부록</div>
+      <h2>한 줄 명령 스물</h2>
+      <p>긴 요청을 쓸 여유가 없을 때, 받은 답 뒤에 이어 붙이는 짧은 말들입니다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>한 줄</th><th>언제</th></tr>
+          <tr><td>"절반으로 줄여 줘"</td><td>말이 늘어질 때</td></tr>
+          <tr><td>"세 문장으로"</td><td>결론만 보고 싶을 때</td></tr>
+          <tr><td>"표로 만들어 줘"</td><td>비교해야 할 때</td></tr>
+          <tr><td>"예를 하나만"</td><td>추상적일 때</td></tr>
+          <tr><td>"쉬운 말로"</td><td>용어가 많을 때</td></tr>
+          <tr><td>"세 가지 안으로"</td><td>고르고 싶을 때</td></tr>
+          <tr><td>"이건 왜 그래?"</td><td>이유가 궁금할 때</td></tr>
+          <tr><td>"근거를 붙여 줘"</td><td>믿어도 될지 모를 때</td></tr>
+          <tr><td>"확실하지 않은 곳을 표시해 줘"</td><td>사실이 섞여 있을 때</td></tr>
+          <tr><td>"반대로 생각하면?"</td><td>한쪽으로 기울 때</td></tr>
+          <tr><td>"내가 놓친 게 있을까?"</td><td>마무리 전에</td></tr>
+          <tr><td>"칭찬은 빼고"</td><td>서론이 길 때</td></tr>
+          <tr><td>"질문 세 개만 먼저"</td><td>시작하기 전에</td></tr>
+          <tr><td>"두 번째 것만 다시"</td><td>일부만 아쉬울 때</td></tr>
+          <tr><td>"방금 것 되돌려 줘"</td><td>고치다 나빠졌을 때</td></tr>
+          <tr><td>"더 담담하게"</td><td>말투가 과할 때</td></tr>
+          <tr><td>"내 문장 그대로 두고"</td><td>내 글을 맡길 때</td></tr>
+          <tr><td>"지금까지 정한 것 정리해 줘"</td><td>대화가 길어졌을 때</td></tr>
+          <tr><td>"이어서 계속"</td><td>답이 중간에 끊겼을 때</td></tr>
+          <tr><td>"한 문장으로 말하면?"</td><td>핵심이 안 잡힐 때</td></tr>
+        </table>
+      </div>
+
+      <div class="closing">
+        <p>여기까지가 첫 권입니다. 이 권의 전부는 사실 한 문장으로 줄어듭니다. <strong>사정을 말하고, 무엇을 원하는지 적고, 아니면 아니라고 말한다.</strong></p>
+        <p>사람과 일할 때 하는 것과 다르지 않습니다. 다만 이 상대는 몇 번을 다시 시켜도 지치지 않는다는 점이 다릅니다. 그러니 마음 편히 여러 번 시키셔도 됩니다.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="next c-persimmon">
+    <span class="next-label">다음 권</span>
+    <a href="#v2">제2권 · 아이디어 꺼내는 법 &rarr;</a>
+  </div>
+</section>
+
+<section class="vol" id="v2" data-hue="persimmon">
+
+  <header class="cover">
+    <div class="eyebrow">제2권</div>
+    <h1>아이디어 꺼내는 법</h1>
+    <p class="lede">창의성은 타고나는 성질이 아니라 밟을 수 있는 절차입니다. 모으고, 쏟고, 고르고, 키우는 네 단계로 나눠 각 단계에서 실제로 무엇을 하는지만 적었습니다.</p>
+    <div class="cover-meta">
+      <div><b>읽는 데</b> 25분</div>
+      <div><b>필요한 것</b> 메모장 하나</div>
+      <div><b>얻는 것</b> 발상 기술 여덟 · 고르는 체 셋</div>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <h2>차례</h2>
+    <ol>
+      <li><a href="#v2c0"><span class="n">00</span><span class="t">떠오르는 게 아니라 꺼내는 것</span></a></li>
+      <li><a href="#v2c1"><span class="n">01</span><span class="t">모으기 · 하루 세 줄</span></a></li>
+      <li><a href="#v2c2"><span class="n">02</span><span class="t">쏟기 · 양이 질을 만든다</span></a></li>
+      <li><a href="#v2c3"><span class="n">03</span><span class="t">발상 기술 여덟</span></a></li>
+      <li><a href="#v2c4"><span class="n">04</span><span class="t">고르기 · 세 개의 체</span></a></li>
+      <li><a href="#v2c5"><span class="n">05</span><span class="t">키우기 · 한 문장에서 형태로</span></a></li>
+      <li><a href="#v2c6"><span class="n">06</span><span class="t">막혔을 때 여섯 처방</span></a></li>
+      <li><a href="#v2c7"><span class="n">07</span><span class="t">AI를 발상 상대로 쓰는 법</span></a></li>
+      <li><a href="#v2c8"><span class="n">08</span><span class="t">참고와 표절 사이</span></a></li>
+      <li><a href="#v2c9"><span class="n">09</span><span class="t">2주 실험</span></a></li>
+      <li><a href="#v2c10"><span class="n">부록</span><span class="t">발상 질문 스물넷</span></a></li>
+    </ol>
+  </nav>
+
+  <!-- 00 -->
+  <section class="chapter" id="v2c0">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">00</div>
+      <h2>떠오르는 게 아니라 꺼내는 것</h2>
+      <p>아이디어가 필요할 때 우리는 대개 가만히 앉아 떠오르기를 기다립니다. 그런데 오래 이 일을 해 온 사람들은 대체로 기다리지 않습니다. <strong>절차를 밟습니다.</strong></p>
+      <p>절차는 넷입니다. 재료를 <em>모으고</em>, 판단 없이 <em>쏟고</em>, 그중에서 <em>고르고</em>, 고른 것을 <em>키웁니다</em>. 대부분의 막힘은 이 넷을 한꺼번에 하려다 생깁니다. 쏟으면서 동시에 판단하면 손이 굳고, 재료 없이 쏟으려 하면 아무것도 나오지 않습니다.</p>
+
+      <div class="note">
+        <span class="tag">이 권의 뼈대</span>
+        <p><strong>모으기</strong>(1장) → <strong>쏟기</strong>(2·3장) → <strong>고르기</strong>(4장) → <strong>키우기</strong>(5장). 막혔을 때의 처방(6장)과 AI를 상대로 쓰는 법(7장)은 네 단계 어디서든 꺼내 쓰는 자리입니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 -->
+  <section class="chapter" id="v2c1">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">01</div>
+      <h2>모으기 · 하루 세 줄</h2>
+      <p>발상은 무에서 나오지 않습니다. 이미 가진 것들이 서로 부딪칠 때 나옵니다. 그러니 아이디어가 없다는 말은 대개 <strong>재료가 없다는 뜻</strong>입니다.</p>
+      <p>가장 값싸고 확실한 방법은 하루 세 줄입니다. 잘 쓸 필요도, 완성할 필요도 없습니다. 한 줄에 열 글자여도 됩니다.</p>
+
+      <h3>무엇을 적나</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>이런 것을</th><th>예</th></tr>
+          <tr><td>눈에 걸린 것</td><td>버스에서 본 문구, 가게 간판의 이상한 띄어쓰기</td></tr>
+          <tr><td>들은 말</td><td>누가 무심코 한 한 문장</td></tr>
+          <tr><td>화가 난 것</td><td>불편했던 절차, 말이 안 되는 규칙</td></tr>
+          <tr><td>부러운 것</td><td>남이 만든 것 중 마음이 움직인 자리</td></tr>
+          <tr><td>설명 못한 것</td><td>말하려다 못 한 감정, 이름 붙일 수 없던 상태</td></tr>
+        </table>
+      </div>
+
+      <p>화난 것과 부러운 것을 따로 적어 두시길 권합니다. 이 둘은 <strong>내 관심이 어디에 있는지 가장 정직하게 알려 주는 신호</strong>입니다. 좋아하는 것은 꾸며서 말하게 되지만, 화와 부러움은 잘 꾸며지지 않습니다.</p>
+
+      <div class="note quiet">
+        <span class="tag">한 가지만 지킨다면</span>
+        <p>모으는 자리와 만드는 자리를 섞지 않는 것입니다. 적을 때는 쓸모를 따지지 않고 적기만 합니다. 쓸모를 따지는 순간 손이 멈추고, 두 달쯤 지나 쓸 재료가 하나도 남아 있지 않게 됩니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="chapter" id="v2c2">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">02</div>
+      <h2>쏟기 · 양이 질을 만든다</h2>
+      <p>좋은 아이디어를 바로 겨냥하면 대개 실패합니다. 첫 다섯 개는 누구나 떠올리는 것들이고, 정말 쓸 만한 것은 대체로 <strong>스무 번째 언저리</strong>에서 나옵니다. 앞의 열아홉 개는 버리는 게 아니라 거기까지 가기 위한 계단입니다.</p>
+
+      <h3>쏟기의 규칙 셋</h3>
+      <ol class="steps">
+        <li><strong>개수를 정합니다.</strong> 서른 개. 좋은 것 서른이 아니라 그냥 서른입니다.</li>
+        <li><strong>시간을 정합니다.</strong> 10분. 짧아야 판단할 틈이 없습니다.</li>
+        <li><strong>판단은 나중으로 미룹니다.</strong> 이상한 것, 못 할 것, 부끄러운 것도 그대로 적습니다.</li>
+      </ol>
+
+      <p>세 번째가 가장 어렵고 가장 중요합니다. 적으면서 동시에 고르면 <strong>고르는 뇌가 적는 뇌를 이깁니다.</strong> 그러면 안전한 것만 남습니다. 종이에 적는 동안에는 아무것도 판단하지 않는다고 미리 정해 두시는 편이 좋습니다.</p>
+
+      <div class="note">
+        <span class="tag">스물다섯 개쯤에서</span>
+        <p>더 나오지 않는 지점이 옵니다. 거기서 멈추지 않고 억지로 다섯 개를 더 짜내면, 그 다섯 개가 앞의 스물다섯과 성질이 다릅니다. 이미 뻔한 걸 다 써 버려서 다른 데를 뒤질 수밖에 없기 때문입니다. 그 자리를 노리고 개수를 정하는 것입니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="chapter" id="v2c3">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">03</div>
+      <h2>발상 기술 여덟</h2>
+      <p>서른 개를 채우다 막힐 때 꺼내는 도구들입니다. 하나씩 대입해 보시면 됩니다. 오른쪽 칸은 AI에게 그대로 시킬 수 있는 문장입니다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>기술</th><th>이렇게</th><th>시킬 문장</th></tr>
+          <tr><td><strong>뒤집기</strong></td><td>반대로 하면 어떻게 되나</td><td>"이것의 정반대를 열 개 적어 줘"</td></tr>
+          <tr><td><strong>결합</strong></td><td>상관없는 둘을 붙인다</td><td>"이 주제와 [무관한 분야]를 섞으면?"</td></tr>
+          <tr><td><strong>극단</strong></td><td>백 배 크게, 백 배 작게</td><td>"예산이 열 배라면? 만 원뿐이라면?"</td></tr>
+          <tr><td><strong>제약</strong></td><td>일부러 하나를 금지한다</td><td>"글자를 못 쓴다면 어떻게 전할까"</td></tr>
+          <tr><td><strong>빌려오기</strong></td><td>다른 분야의 해법을 가져온다</td><td>"요리·건축·운동에서는 이걸 어떻게 풀까"</td></tr>
+          <tr><td><strong>대상 바꾸기</strong></td><td>받는 사람을 바꾼다</td><td>"이걸 아이에게 준다면? 노인에게라면?"</td></tr>
+          <tr><td><strong>시간 옮기기</strong></td><td>100년 전·후로 옮긴다</td><td>"1920년에 이 일을 했다면 어떤 모습일까"</td></tr>
+          <tr><td><strong>빼기</strong></td><td>가장 당연한 것을 없앤다</td><td>"이것에서 없애도 되는 걸 찾아 줘"</td></tr>
+        </table>
+      </div>
+
+      <div class="note quiet">
+        <span class="tag">가장 잘 듣는 둘</span>
+        <p><strong>빼기</strong>와 <strong>제약</strong>입니다. 무엇을 더할지 생각할 때는 끝이 없지만, 무엇을 없앨지 생각하면 형태가 금방 잡힙니다. 대부분의 좋은 물건은 더해서가 아니라 덜어서 그렇게 된 것들입니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="chapter" id="v2c4">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">04</div>
+      <h2>고르기 · 세 개의 체</h2>
+      <p>서른 개를 쏟았다면 이제 거릅니다. 좋고 나쁨을 따지지 말고 <strong>세 개의 체</strong>에 차례로 부으시면 됩니다.</p>
+
+      <div class="plan">
+        <div class="plan-row"><div class="day">첫째 체</div><div class="what">사흘 뒤에도 생각나는가<small>적어 두고 사흘 덮어 둡니다. 다시 폈을 때 마음이 움직이는 것만 남깁니다. 흥분은 사흘을 못 넘깁니다.</small></div></div>
+        <div class="plan-row"><div class="day">둘째 체</div><div class="what">한 문장으로 남에게 설명되는가<small>설명하는 데 세 문장이 필요하면 아직 덜 여문 것입니다. 버릴 게 아니라 더 키워야 한다는 신호입니다.</small></div></div>
+        <div class="plan-row"><div class="day">셋째 체</div><div class="what">내일 30분으로 시작할 수 있는가<small>시작점이 안 보이는 것은 아이디어가 아니라 소망에 가깝습니다. 첫 30분이 그려지는 것부터 손에 잡힙니다.</small></div></div>
+      </div>
+
+      <p>셋을 다 통과한 것이 <strong>지금 할 것</strong>입니다. 대개 서른 개 중 하나나 둘입니다. 둘째 체에서 걸린 것들은 버리지 말고 따로 모아 두시면 좋습니다. 몇 달 뒤 다른 재료와 붙어 갑자기 또렷해지는 일이 자주 있습니다.</p>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="chapter" id="v2c5">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">05</div>
+      <h2>키우기 · 한 문장에서 형태로</h2>
+      <p>고른 하나를 형태로 만드는 단계입니다. 네 개의 질문을 순서대로 통과시키면 됩니다. 각 질문에 대한 답을 <strong>한 문단씩</strong> 적어 보시는 게 좋습니다.</p>
+
+      <ol class="steps">
+        <li><strong>한 문장으로 뭔가?</strong> — 남에게 말하듯 한 문장. 여기서 막히면 아직 안 여문 것입니다.</li>
+        <li><strong>왜 하필 나인가?</strong> — 내 경험·조건 중 이것과 붙는 자리를 찾습니다. 이게 없으면 누가 해도 되는 것이 되고, 그러면 오래 못 갑니다.</li>
+        <li><strong>누가 좋아할까?</strong> — 아는 사람 중 한 명을 실제로 떠올립니다. "많은 사람"은 아무도 아닙니다.</li>
+        <li><strong>가장 작은 형태는?</strong> — 이번 주에 끝낼 수 있는 크기로 줄입니다. 책이면 한 편, 서비스면 화면 하나.</li>
+      </ol>
+
+      <h3>반론을 미리 붙입니다</h3>
+      <p>네 질문을 통과했다면 마지막으로 스스로 때려 봅니다. <strong>"이게 안 될 이유 세 가지"</strong>를 적어 보시면 됩니다. 그중 하나가 진짜 급소인 경우가 많고, 그걸 미리 알고 시작하는 것과 나중에 맞는 것은 아주 다릅니다.</p>
+
+      <div class="note">
+        <span class="tag">가장 작은 형태로 먼저 내보내기</span>
+        <p>다 만든 뒤 보여 주려 하면 대개 못 보여 줍니다. 완성이라는 기준은 계속 뒤로 물러나기 때문입니다. 작게 만들어 일찍 내보내면, 다음에 무엇을 해야 할지를 <strong>내 짐작이 아니라 반응이</strong> 알려 줍니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="chapter" id="v2c6">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">06</div>
+      <h2>막혔을 때 여섯 처방</h2>
+      <p>막힘은 재능의 문제가 아니라 대개 <strong>조건의 문제</strong>입니다. 조건을 바꾸면 대개 풀립니다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>처방</th><th>왜 듣나</th></tr>
+          <tr><td><strong>자리를 바꾼다</strong></td><td>같은 책상에서 안 되던 게 카페나 산책길에서 풀리는 건 흔한 일입니다. 몸이 바뀌면 생각의 경로도 바뀝니다</td></tr>
+          <tr><td><strong>남의 것을 옮겨 적는다</strong></td><td>좋아하는 글 한 문단을 손으로 베낍니다. 읽을 때 안 보이던 짜임이 옮겨 적을 때 보입니다</td></tr>
+          <tr><td><strong>제약을 더한다</strong></td><td>"300자 안에", "대화만으로". 선택지가 줄면 오히려 길이 보입니다</td></tr>
+          <tr><td><strong>마감을 당긴다</strong></td><td>일주일 뒤를 오늘 밤으로 옮깁니다. 완벽하려는 마음이 시간에 밀려 물러납니다</td></tr>
+          <tr><td><strong>소리 내어 설명한다</strong></td><td>사람이 없으면 녹음기에. 말로 하면 어디가 비었는지 귀로 들립니다</td></tr>
+          <tr><td><strong>자기 전에 던져 둔다</strong></td><td>질문만 또렷이 남기고 덮습니다. 자는 동안 정리되는 몫이 분명히 있습니다</td></tr>
+        </table>
+      </div>
+
+      <p>여섯 개 중 어느 것도 "더 열심히 생각하기"가 아닙니다. 막혔을 때 더 오래 앉아 있는 것은 대체로 가장 효과가 없는 방법입니다.</p>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section class="chapter" id="v2c7">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">07</div>
+      <h2>AI를 발상 상대로 쓰는 법</h2>
+      <p>여기에 원칙이 하나 있습니다. <strong>아이디어를 달라고 하지 말고, 재료와 각도를 시킵니다.</strong></p>
+      <p>"좋은 아이디어 열 개 줘"라고 하면 무난한 것들이 옵니다. 무난한 것은 이미 세상에 많이 있는 것이고, 그래서 쓸모가 적습니다. 대신 <strong>내가 생각할 수 있게 만드는 재료</strong>를 시키면 결과가 달라집니다.</p>
+
+      <div class="script">
+        <div class="script-item">
+          <div class="script-when">시작할 때 — 흔한 길부터 지운다</div>
+          <div class="script-say">"이 주제로 사람들이 흔히 쓰는 접근 열 개를 먼저 알려 줘. 나는 그걸 피하고 싶어."</div>
+          <div class="script-why">이 권에서 가장 실용적인 한 문장일 것입니다. 남이 이미 간 길을 지도로 받아 두면, 내가 갈 곳이 어디인지 훨씬 빨리 보입니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">재료가 부족할 때</div>
+          <div class="script-say">"이 주제에 대해 질문만 스무 개 만들어 줘. 답은 하지 마."</div>
+          <div class="script-why">답은 남의 생각이지만 질문은 내 생각을 여는 열쇠입니다. 스무 개 중 두어 개가 반드시 걸립니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">각도를 바꾸고 싶을 때</div>
+          <div class="script-say">"이 아이디어를 요리사·건축가·운동선수라면 뭐라고 부를까? 각각 한 문단씩."</div>
+          <div class="script-why">3장의 '빌려오기'를 시키는 방식입니다. 남의 분야의 말로 옮겨 보면 내 것의 구조가 보입니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">스스로 점검할 때</div>
+          <div class="script-say">"내 아이디어에 반대하는 사람 셋을 만들어, 각자 다른 이유로 한 문단씩 반대하게 해 줘."</div>
+          <div class="script-why">혼자서는 자기 아이디어를 잘 못 때립니다. 세 사람으로 나누면 훨씬 날카로운 말이 나옵니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">문장이 흐릴 때</div>
+          <div class="script-say">"이 문장에서 가장 약한 낱말이 뭐야? 왜 약한지도."</div>
+          <div class="script-why">고쳐 달라고 하지 않는 게 요령입니다. 짚어만 받고 고치는 손은 내가 쥡니다.</div>
+        </div>
+      </div>
+
+      <div class="note quiet">
+        <span class="tag">주의</span>
+        <p>발상 단계에서 AI의 문장을 그대로 가져다 쓰면, 내 것 같지 않은 자리가 남습니다. 이 단계에서는 <strong>목록·질문·반론</strong>까지만 받고, 문장은 직접 쓰시는 편이 결과가 낫습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section class="chapter" id="v2c8">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">08</div>
+      <h2>참고와 표절 사이</h2>
+      <p>남의 것에서 배우는 일과 가져다 쓰는 일 사이에는 선이 있습니다. 실무에서는 대개 이 정도로 판단합니다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>이건 배우는 쪽</th><th>이건 가져오는 쪽</th></tr>
+          <tr><td>구조를 분석해 내 재료로 다시 짓기</td><td>문장이나 화면을 그대로 옮기기</td></tr>
+          <tr><td>여럿에게서 조금씩 배우기</td><td>한 사람의 것을 통째로 따르기</td></tr>
+          <tr><td>어디서 배웠는지 말할 수 있기</td><td>출처를 감추게 되는 마음이 들기</td></tr>
+        </table>
+      </div>
+
+      <p>마지막 줄이 가장 실용적인 기준입니다. <strong>"이거 어디서 배웠어?"라는 질문에 편하게 답할 수 있으면</strong> 대개 괜찮은 자리입니다. 답하기 꺼려진다면, 스스로 이미 알고 있는 것입니다.</p>
+
+      <h3>AI가 만든 것을 쓸 때</h3>
+      <ul class="plain">
+        <li>내 이름으로 내보낼 글이라면, <strong>문장은 내가 다시 씁니다.</strong> 뜻이 같아도 손을 거친 문장과 아닌 문장은 읽는 사람이 느낍니다.</li>
+        <li>사실·인용·숫자가 들어간다면 1권 7장의 확인 절차를 거칩니다.</li>
+        <li>공모나 투고처럼 규정이 있는 자리는 <strong>그곳의 방침을 먼저 확인</strong>합니다. 최근 몇 년 사이 많이 달라졌습니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section class="chapter" id="v2c9">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">09</div>
+      <h2>2주 실험</h2>
+      <p>읽고 끝내지 않으려면 한 번은 돌려 보셔야 합니다. 하루 15분, 2주면 네 단계를 한 바퀴 돕니다.</p>
+
+      <div class="plan">
+        <div class="plan-row"><div class="day">1–5일</div><div class="what">하루 세 줄 모으기<small>다른 건 하지 않습니다. 재료를 쌓는 닷새입니다.</small></div></div>
+        <div class="plan-row"><div class="day">6일</div><div class="what">모은 것 다시 읽기<small>반복해서 나온 낱말이나 장면에 표시합니다. 그게 내 관심의 자리입니다.</small></div></div>
+        <div class="plan-row"><div class="day">7일</div><div class="what">주제 하나를 정해 10분에 서른 개 쏟기<small>2장의 규칙 그대로. 판단하지 않습니다.</small></div></div>
+        <div class="plan-row"><div class="day">8일</div><div class="what">막힌 자리에 발상 기술 여덟 대입<small>서른 개를 못 채웠다면 3장의 표를 하나씩 대 봅니다.</small></div></div>
+        <div class="plan-row rest"><div class="day">9–10일</div><div class="what">덮어 두기<small>보지 않습니다. 첫째 체가 작동하는 데 필요한 시간입니다.</small></div></div>
+        <div class="plan-row"><div class="day">11일</div><div class="what">세 개의 체로 거르기<small>남는 건 대개 하나입니다. 그거면 충분합니다.</small></div></div>
+        <div class="plan-row"><div class="day">12일</div><div class="what">네 질문으로 키우기<small>5장. 각 질문에 한 문단씩 적습니다.</small></div></div>
+        <div class="plan-row"><div class="day">13일</div><div class="what">안 될 이유 세 가지 적기<small>그중 하나에 대한 대비만 세워 둡니다.</small></div></div>
+        <div class="plan-row"><div class="day">14일</div><div class="what">가장 작은 형태로 하나 내보내기<small>글 한 편, 화면 하나, 메모 한 장. 남에게 보이는 데까지 가는 게 이 2주의 목적입니다.</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 부록 -->
+  <section class="chapter" id="v2c10">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">부록</div>
+      <h2>발상 질문 스물넷</h2>
+      <p>서른 개를 채우다 손이 멈출 때 하나씩 던져 보는 질문들입니다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>비틀기</th><th>파고들기</th></tr>
+          <tr><td>정반대로 하면 어떻게 되나</td><td>이걸 처음 본 사람은 뭘 물을까</td></tr>
+          <tr><td>가장 당연한 걸 없애면</td><td>여기서 진짜 어려운 건 무엇인가</td></tr>
+          <tr><td>열 배 크게 하면</td><td>왜 아직 아무도 안 했을까</td></tr>
+          <tr><td>만 원으로만 한다면</td><td>내가 틀렸다면 어디서부터일까</td></tr>
+          <tr><td>하루 만에 해야 한다면</td><td>이건 무엇의 증상인가</td></tr>
+          <tr><td>말을 못 쓴다면</td><td>누가 이걸 가장 싫어할까</td></tr>
+          <tr><td>아이에게 준다면</td><td>다섯 살에게 어떻게 설명하나</td></tr>
+          <tr><td>100년 전이라면</td><td>여기서 내가 피하고 있는 건 뭔가</td></tr>
+          <tr><td>다른 분야에선 뭐라 부를까</td><td>이걸 계속하게 만드는 건 뭔가</td></tr>
+          <tr><td>둘을 붙이면 뭐가 되나</td><td>가장 작게 만들면 어떤 모양인가</td></tr>
+          <tr><td>순서를 거꾸로 하면</td><td>여기서 나만 아는 게 있나</td></tr>
+          <tr><td>없어도 되는 건 뭔가</td><td>사흘 뒤에도 이게 생각날까</td></tr>
+        </table>
+      </div>
+
+      <div class="closing">
+        <p>창의성이라는 말은 종종 사람을 주눅 들게 합니다. 타고난 몫처럼 들리기 때문입니다. 그런데 실제로 무언가를 오래 만들어 온 사람들을 보면, 대개 <strong>재료를 성실히 모으고 판단을 뒤로 미루는 습관</strong>을 가지고 있습니다.</p>
+        <p>그 습관은 배울 수 있습니다. 그리고 배우는 데 재능은 별로 필요하지 않습니다.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="next c-plum">
+    <span class="next-label">다음 권</span>
+    <a href="#v3">제3권 · 웹사이트 만들기 &rarr;</a>
+  </div>
+</section>
+
+<section class="vol" id="v3" data-hue="plum">
+  <header class="cover">
+    <div class="eyebrow">제3권</div>
+    <h1>웹사이트 만들기</h1>
+    <p class="lede">코드를 한 줄도 써 본 적 없는 사람이, 자기 이름의 웹사이트를 갖기까지 알아야 하는 것만 모았습니다. 다 이해한 다음에 시작하는 책이 아니라, 만들면서 옆에 펴 두는 책입니다.</p>
+    <div class="cover-meta">
+      <div><b>먼저 읽으면 좋은 것</b> 1권</div>
+      <div><b>전제 지식</b> 없음</div>
+      <div><b>필요한 것</b> 컴퓨터 · 브라우저 · 텍스트 편집기</div>
+      <div><b>읽는 데</b> 40분</div>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <h2>차례</h2>
+    <ol>
+      <li><a href="#v3c0"><span class="n">00</span><span class="t">시작하기 전에 — 우리 둘의 역할</span></a></li>
+      <li><a href="#v3c1"><span class="n">01</span><span class="t">웹사이트는 결국 폴더 하나다</span></a></li>
+      <li><a href="#v3c2"><span class="n">02</span><span class="t">세 개의 언어: 뼈대 · 결 · 움직임</span></a></li>
+      <li><a href="#v3c3"><span class="n">03</span><span class="t">HTML — 글에 뼈를 세우는 일</span></a></li>
+      <li><a href="#v3c4"><span class="n">04</span><span class="t">CSS — 같은 글을 다르게 입히는 일</span></a></li>
+      <li><a href="#v3c5"><span class="n">05</span><span class="t">이름과 길: 파일명과 경로</span></a></li>
+      <li><a href="#v3c6"><span class="n">06</span><span class="t">인터넷에 올리기 — 주소가 생기는 순간</span></a></li>
+      <li><a href="#v3c7"><span class="n">07</span><span class="t">저에게 말 거는 법</span></a></li>
+      <li><a href="#v3c8"><span class="n">08</span><span class="t">자주 마주칠 단어 스물넷</span></a></li>
+      <li><a href="#v3c9"><span class="n">09</span><span class="t">첫 2주, 하루 30분</span></a></li>
+      <li><a href="#v3c10"><span class="n">부록</span><span class="t">지금은 몰라도 되는 것들</span></a></li>
+    </ol>
+  </nav>
+
+  <!-- 0 -->
+  <section class="chapter" id="v3c0">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">00</div>
+      <h2>시작하기 전에 — 우리 둘의 역할</h2>
+      <p>웹사이트를 만드는 일에서 디퍼님이 맡을 몫과 제가 맡을 몫은 처음부터 다릅니다. 디퍼님은 <strong>무엇이 어떻게 보였으면 하는지</strong>를 정합니다. 저는 그 말을 코드로 옮깁니다. 그래서 코드를 직접 쓰실 필요는 없습니다.</p>
+      <p>다만 <strong>읽을 줄은 아셔야 합니다.</strong> 코드가 무슨 말인지 대강 알아야, 화면을 보고 "여기 이 부분을 이렇게 바꿔 달라"고 정확히 말할 수 있습니다. 글로 치면 조판을 직접 하지 않더라도 판면을 볼 줄은 아는 것과 같습니다. 이 권이 목표로 하는 건 딱 그만큼입니다.</p>
+
+      <div class="note">
+        <span class="tag">이 권을 읽는 법</span>
+        <p>1장부터 4장까지는 순서대로 읽으시면 좋겠습니다. 30분이면 됩니다. 5장부터는 그때그때 필요할 때 펴 보시면 되는 자리입니다. 7장(저에게 말 거는 법)은 실제로 만들기 시작한 날 다시 읽으시면 훨씬 잘 붙습니다.</p>
+      </div>
+
+      <h3>중간에 막히면</h3>
+      <p>모르는 단어가 나오면 그냥 저에게 "그게 뭐야?"라고 물어 주세요. 무언가를 망가뜨릴까 봐 걱정되실 텐데, 이 작업에서 되돌릴 수 없는 일은 거의 없습니다. 파일 하나를 지워도 다시 만들면 그만입니다. 이 점이 글쓰기와 좀 다릅니다.</p>
+    </div>
+  </section>
+
+  <!-- 1 -->
+  <section class="chapter" id="v3c1">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">01</div>
+      <h2>웹사이트는 결국 폴더 하나다</h2>
+      <p>가장 먼저 내려놓으셔도 좋은 오해가 하나 있습니다. 웹사이트는 어떤 특별한 장치나 프로그램이 아닙니다. <strong>파일 몇 개가 든 폴더</strong>입니다. 우리가 문서 폴더에 원고 파일을 모아 두는 것과 형태가 똑같습니다.</p>
+      <p>다른 점은 그 폴더를 읽는 쪽입니다. 원고는 사람이 읽지만, 이 폴더는 <em>브라우저</em>가 읽습니다. 크롬이나 사파리가 폴더 속 파일을 열어, 거기 적힌 지시대로 화면에 글자와 그림을 그립니다. 브라우저는 낭독자에 가깝습니다. 우리가 쓴 것을 화면이라는 목소리로 읽어 줍니다.</p>
+
+      <h3>파일 이름 뒤에 붙는 점</h3>
+      <p>파일 이름 끝의 <code>.html</code>, <code>.css</code> 같은 부분을 확장자라고 합니다. 이건 그 파일이 어떤 종류인지 알려 주는 꼬리표입니다. 내용은 전부 그냥 글자입니다. 특별한 파일이 아니라, 이름을 그렇게 붙였을 뿐입니다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>파일</th><th>맡는 일</th></tr>
+          <tr><td><code>index.html</code></td><td>페이지에 무엇이 있는지 — 제목, 글, 링크, 사진</td></tr>
+          <tr><td><code>style.css</code></td><td>그것들이 어떻게 보이는지 — 색, 글꼴, 여백</td></tr>
+          <tr><td><code>script.js</code></td><td>무엇이 움직이는지 — 버튼을 누르면 일어나는 일</td></tr>
+          <tr><td><code>images/</code></td><td>사진을 모아 두는 폴더</td></tr>
+        </table>
+      </div>
+
+      <h3>지금 바로 해 보기 · 10분</h3>
+      <p>읽기만 하면 잘 남지 않으니, 여기서 한 번 손을 쓰시면 좋겠습니다. 이 실습의 결과물은 디퍼님 컴퓨터 안에만 있습니다. 아직 인터넷과는 아무 관련이 없습니다.</p>
+
+      <ol class="steps">
+        <li>Finder에서 <strong>문서</strong> 폴더에 새 폴더를 만들고 이름을 <code>my-site</code>로 붙입니다.</li>
+        <li><strong>텍스트 편집</strong>(TextEdit)을 엽니다. 새 문서를 만든 뒤 상단 메뉴에서 <strong>포맷 → 일반 텍스트로 만들기</strong>를 누릅니다. (단축키 <code>⇧⌘T</code>)</li>
+        <li>아래 다섯 줄을 그대로 옮겨 적습니다.</li>
+        <li><code>⌘S</code>로 저장합니다. 위치는 방금 만든 <code>my-site</code>, 이름은 <code>index.html</code>. "확장자를 .html로 사용하시겠습니까?"라고 물으면 <strong>.html 사용</strong>을 고릅니다.</li>
+        <li>Finder에서 그 파일을 더블클릭합니다. 브라우저가 열립니다.</li>
+      </ol>
+
+      <div class="note quiet">
+        <span class="tag">윈도우를 쓰신다면</span>
+        <p>메모장을 열고 같은 내용을 적은 뒤 <strong>파일 → 다른 이름으로 저장</strong>에서, 파일 형식을 <strong>모든 파일</strong>로 인코딩을 <strong>UTF-8</strong>로 바꾸고 이름을 <code>index.html</code>로 저장하시면 됩니다. 이 권에 나오는 <code>⌘</code>는 윈도우에서 <code>Ctrl</code>로 읽으시면 됩니다.</p>
+      </div>
+
+      <div class="demo split">
+        <div>
+          <div class="demo-label">index.html</div>
+          <pre><code>&lt;meta charset="utf-8"&gt;
+&lt;h1&gt;디퍼&lt;/h1&gt;
+&lt;p&gt;읽고 쓰는 사람입니다.&lt;/p&gt;
+&lt;p&gt;여기는 제 첫 페이지입니다.&lt;/p&gt;</code></pre>
+        </div>
+        <div>
+          <div class="demo-label">브라우저가 보여 주는 것</div>
+          <div class="browser">
+            <div class="browser-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span>file:///Users/deeper/Documents/my-site/index.html</span></div>
+            <div class="preview">
+              <h1>디퍼</h1>
+              <p>읽고 쓰는 사람입니다.</p>
+              <p>여기는 제 첫 페이지입니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note quiet">
+        <span class="tag">눈여겨볼 것</span>
+        <p>주소창을 보시면 <code>https://</code>가 아니라 <code>file:///</code>로 시작합니다. 인터넷에서 가져온 페이지가 아니라 내 컴퓨터의 파일을 직접 열었다는 뜻입니다. 이 차이가 6장에서 다시 나옵니다.</p>
+      </div>
+
+      <p>맨 첫 줄의 <code>&lt;meta charset="utf-8"&gt;</code>는 "이 파일에 한글이 들어 있다"고 브라우저에 알려 주는 줄입니다. 이 줄이 없으면 한글이 <code>ìµìˆ˜ë¹ˆ</code>처럼 깨져 보일 수 있습니다. 한글로 쓰는 우리에게는 사실상 필수인 한 줄이라, 습관처럼 맨 위에 두시면 됩니다.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="chapter" id="v3c2">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">02</div>
+      <h2>세 개의 언어: 뼈대 · 결 · 움직임</h2>
+      <p>웹 페이지를 이루는 언어는 셋입니다. 이름이 낯설 뿐 역할은 단순하고, 서로 하는 일이 겹치지 않습니다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>언어</th><th>맡는 것</th><th>책에 비유하면</th></tr>
+          <tr><td><strong>HTML</strong></td><td>무엇이 있는가 — 내용과 구조</td><td>원고</td></tr>
+          <tr><td><strong>CSS</strong></td><td>어떻게 보이는가 — 색·글꼴·여백</td><td>조판과 장정</td></tr>
+          <tr><td><strong>JavaScript</strong></td><td>무엇이 움직이는가 — 반응과 변화</td><td>책장을 넘기는 손</td></tr>
+        </table>
+      </div>
+
+      <p>세 언어의 관계는 이렇습니다. 같은 원고를 다른 조판으로 찍으면 완전히 다른 책이 되지만 글은 그대로입니다. HTML과 CSS의 관계가 정확히 그렇습니다. 내용은 하나인데 <code>style.css</code> 하나만 바꾸면 페이지의 인상이 통째로 달라집니다.</p>
+
+      <p>그리고 하나 안심하실 만한 사실이 있습니다. <strong>개인 웹사이트는 대개 HTML과 CSS만으로 충분합니다.</strong> 글 목록이 있고, 소개가 있고, 연락처가 있는 사이트라면 JavaScript는 없어도 됩니다. 세 번째 언어는 나중에, 정말 필요해질 때 꺼내면 되는 것입니다.</p>
+
+      <h3>같은 내용, 다른 결</h3>
+      <p>아래 두 화면의 글은 한 글자도 다르지 않습니다. CSS만 있느냐 없느냐의 차이입니다.</p>
+
+      <div class="demo split">
+        <div>
+          <div class="demo-label">CSS 없이 — 브라우저의 기본값</div>
+          <div class="browser">
+            <div class="browser-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span>index.html</span></div>
+            <div class="preview">
+              <h1>겨울의 목록</h1>
+              <p>기록 모음 · 2026</p>
+              <ul>
+                <li>여는 글</li>
+                <li>12월의 온도</li>
+                <li>오래 걷던 길</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="demo-label">CSS를 입힌 뒤</div>
+          <div class="browser">
+            <div class="browser-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span>index.html + style.css</span></div>
+            <div class="preview styled">
+              <h1>겨울의 목록</h1>
+              <p class="sub">기록 모음 · 2026</p>
+              <ul>
+                <li>여는 글</li>
+                <li>12월의 온도</li>
+                <li>오래 걷던 길</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>왼쪽이 못생겨 보이더라도 그건 잘못된 화면이 아닙니다. 브라우저가 아무 지시도 받지 못했을 때 보여 주는 기본값입니다. 처음 만든 페이지가 저렇게 나오면 제대로 가고 있는 겁니다.</p>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="chapter" id="v3c3">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">03</div>
+      <h2>HTML — 글에 뼈를 세우는 일</h2>
+      <p>HTML의 문법은 사실상 한 가지 규칙뿐입니다. <strong>내용을 태그로 감싼다.</strong> 태그는 꺾쇠 안에 든 짧은 단어이고, 여는 것과 닫는 것이 짝을 이룹니다.</p>
+
+      <pre><code>&lt;p&gt;읽고 쓰는 사람입니다.&lt;/p&gt;
+ ↑                        ↑
+여는 태그                닫는 태그 (슬래시가 붙습니다)</code></pre>
+
+      <p><code>&lt;p&gt;</code>는 문단(paragraph)이라는 뜻입니다. 이렇게 감싸면 브라우저는 "아, 이건 하나의 문단이구나" 하고 앞뒤에 적당한 여백을 두고 그립니다. 감싸는 태그를 <code>&lt;h1&gt;</code>으로 바꾸면 같은 글자가 큰 제목이 됩니다. <strong>태그는 글자를 꾸미는 게 아니라 글자의 역할을 알려 주는 이름표입니다.</strong></p>
+
+      <h3>속성 — 태그에 딸린 정보</h3>
+      <p>태그 안에 추가 정보를 적기도 합니다. 링크가 대표적입니다. 어디로 가는 링크인지는 <code>href</code>에 적습니다.</p>
+      <pre><code>&lt;a href="https://example.com"&gt;책방수북&lt;/a&gt;
+&lt;img src="images/cover.jpg" alt="책 표지"&gt;</code></pre>
+      <p><code>alt</code>는 그림을 볼 수 없는 사람에게 그림 대신 읽어 줄 설명입니다. 눈이 불편한 독자와 검색엔진이 이 문장을 읽습니다. 그림마다 한 줄씩 써 두는 습관은 값이 큽니다.</p>
+
+      <h3>실제로 쓰게 될 태그는 열 개 남짓</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>태그</th><th>뜻</th><th>쓰는 자리</th></tr>
+          <tr><td><code>&lt;h1&gt;~&lt;h3&gt;</code></td><td>제목 (1이 가장 큼)</td><td>사이트 이름, 글 제목, 소제목</td></tr>
+          <tr><td><code>&lt;p&gt;</code></td><td>문단</td><td>본문 한 덩어리마다</td></tr>
+          <tr><td><code>&lt;a&gt;</code></td><td>링크</td><td>다른 페이지·바깥 사이트로</td></tr>
+          <tr><td><code>&lt;img&gt;</code></td><td>그림</td><td>표지, 사진</td></tr>
+          <tr><td><code>&lt;ul&gt;</code> <code>&lt;li&gt;</code></td><td>목록과 그 항목</td><td>글 목록, 약력</td></tr>
+          <tr><td><code>&lt;strong&gt;</code></td><td>강조</td><td>굵게 보이는 부분</td></tr>
+          <tr><td><code>&lt;br&gt;</code></td><td>줄바꿈</td><td>시의 행갈이처럼 꼭 필요할 때만</td></tr>
+          <tr><td><code>&lt;div&gt;</code></td><td>묶음</td><td>여러 요소를 한 덩어리로 묶을 때</td></tr>
+          <tr><td><code>&lt;header&gt;</code> <code>&lt;footer&gt;</code></td><td>머리·꼬리 영역</td><td>맨 위 이름, 맨 아래 연락처</td></tr>
+        </table>
+      </div>
+      <p><code>&lt;img&gt;</code>와 <code>&lt;br&gt;</code>은 감쌀 내용이 없어서 닫는 태그가 없습니다. 예외는 이 정도입니다.</p>
+
+      <h3>한 장의 완성된 페이지</h3>
+      <p>지금까지의 것을 모으면 이미 한 페이지가 됩니다. 아래는 그대로 저장해서 열어 보실 수 있는 온전한 파일입니다.</p>
+
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ko"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;디퍼&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;header&gt;
+    &lt;h1&gt;디퍼&lt;/h1&gt;
+    &lt;p&gt;읽고 쓰고 기록하는 사람입니다.&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;h2&gt;쓴 글&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="works/first.html"&gt;여는 글&lt;/a&gt; — 2026년 봄&lt;/li&gt;
+    &lt;li&gt;겨울의 목록 — 기록 모음, 준비 중&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;연락 · hello@example.com&lt;/p&gt;
+  &lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+      <p>새로 나온 부분만 짚겠습니다. <code>&lt;head&gt;</code>는 <strong>화면에 보이지 않는 정보</strong>를 담는 자리입니다. 브라우저 탭에 뜨는 이름(<code>&lt;title&gt;</code>), 한글 설정, 휴대폰 화면 대응(<code>viewport</code>) 같은 것들이 여기 들어갑니다. <code>&lt;body&gt;</code>가 <strong>실제로 보이는 부분</strong>입니다. 이 두 칸의 구분만 기억하시면 됩니다. 맨 위 <code>&lt;!DOCTYPE html&gt;</code>은 "요즘 방식의 HTML"이라는 표시로, 그냥 늘 첫 줄에 두는 문장입니다.</p>
+
+      <div class="note">
+        <span class="tag">가장 흔한 세 가지 실수</span>
+        <p><strong>닫는 태그를 빠뜨림</strong> — 그 뒤의 글이 전부 제목처럼 커지거나 링크가 됩니다. 화면이 이상하면 여기부터 보시면 됩니다.<br>
+        <strong>따옴표를 빠뜨림</strong> — <code>href=주소</code>가 아니라 <code>href="주소"</code>입니다.<br>
+        <strong>한글이 깨짐</strong> — <code>&lt;meta charset="utf-8"&gt;</code>이 빠졌거나, 파일이 일반 텍스트로 저장되지 않은 경우입니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="chapter" id="v3c4">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">04</div>
+      <h2>CSS — 같은 글을 다르게 입히는 일</h2>
+      <p>CSS의 문법도 한 문장으로 끝납니다. <strong>어디를, 무엇을, 어떻게.</strong></p>
+
+      <pre><code>h1 { color: #1A46C8; }
+ ↑     ↑        ↑
+어디를  무엇을   어떻게</code></pre>
+
+      <p>앞의 <code>h1</code>을 선택자라고 부릅니다. "페이지에 있는 모든 <code>h1</code>에게"라는 뜻입니다. 중괄호 안에는 <code>속성: 값;</code> 짝을 필요한 만큼 적습니다. 세미콜론으로 한 줄씩 끝맺습니다.</p>
+
+      <h3>HTML에 CSS를 붙이는 법</h3>
+      <p><code>style.css</code>라는 파일을 같은 폴더에 만들고, HTML의 <code>&lt;head&gt;</code> 안에 이 한 줄을 넣습니다.</p>
+      <pre><code>&lt;link rel="stylesheet" href="style.css"&gt;</code></pre>
+
+      <h3>실제로 만지게 될 다섯 가지</h3>
+      <p>CSS의 속성은 수백 개지만, 개인 사이트에서 실제로 손대는 건 이 다섯 무리입니다.</p>
+      <div class="table-wrap">
+        <table>
+          <tr><th>무엇을</th><th>속성</th><th>예</th></tr>
+          <tr><td>색</td><td><code>color</code> <code>background</code></td><td><code>color: #333;</code></td></tr>
+          <tr><td>글꼴과 크기</td><td><code>font-family</code> <code>font-size</code></td><td><code>font-size: 18px;</code></td></tr>
+          <tr><td>여백</td><td><code>margin</code> <code>padding</code></td><td><code>margin: 40px 0;</code></td></tr>
+          <tr><td>폭</td><td><code>max-width</code></td><td><code>max-width: 680px;</code></td></tr>
+          <tr><td>줄 간격</td><td><code>line-height</code></td><td><code>line-height: 1.8;</code></td></tr>
+        </table>
+      </div>
+
+      <p><code>margin</code>과 <code>padding</code>은 헷갈리기 쉬운 짝입니다. 액자를 떠올리시면 편합니다. <strong>padding은 그림과 액자 테두리 사이의 여백</strong>, <strong>margin은 액자와 옆 액자 사이의 거리</strong>입니다. 안쪽 여백과 바깥 여백입니다.</p>
+
+      <h3>글이 읽히게 만드는 최소한의 CSS</h3>
+      <p>아래 정도만 있어도 페이지는 충분히 읽을 만해집니다. 특히 <code>max-width</code>가 중요합니다. 이게 없으면 큰 화면에서 한 줄이 끝없이 길어져서, 읽는 눈이 다음 줄을 놓칩니다. 책의 판면 폭과 같은 이야기입니다.</p>
+
+      <div class="demo split">
+        <div>
+          <div class="demo-label">style.css</div>
+          <pre><code><span class="cm">/* 본문 전체 */</span>
+body {
+  max-width: 680px;
+  margin: 60px auto;
+  padding: 0 20px;
+  font-family: sans-serif;
+  font-size: 17px;
+  line-height: 1.8;
+  color: #23262B;
+  background: #FBF9F5;
+}
+
+<span class="cm">/* 제목 */</span>
+h1 {
+  font-size: 30px;
+  margin-bottom: 4px;
+}
+
+<span class="cm">/* 목록에서 점 없애기 */</span>
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  padding: 8px 0;
+  border-bottom: 1px solid #E7E2D9;
+}</code></pre>
+        </div>
+        <div>
+          <div class="demo-label">그 결과</div>
+          <div class="browser">
+            <div class="browser-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span>my-site/index.html</span></div>
+            <div class="preview styled">
+              <h1>디퍼</h1>
+              <p class="sub">읽고 쓰고 기록하는 사람입니다.</p>
+              <ul>
+                <li>여는 글 — 2026년 봄</li>
+                <li>겨울의 목록 — 기록 모음</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p><code>margin: 60px auto;</code>에서 <code>auto</code>는 "좌우 여백을 알아서 똑같이 나눠라", 즉 가운데 정렬입니다. 두 개의 값은 각각 위아래와 좌우를 뜻합니다. <code>/* 이렇게 */</code> 감싼 부분은 주석입니다. 화면에는 보이지 않고, 나중에 다시 읽을 나를 위한 메모 자리입니다.</p>
+
+      <div class="note quiet">
+        <span class="tag">한글 글꼴 이야기</span>
+        <p>한글 웹폰트는 글자 수가 많아 파일이 무겁습니다(영문 폰트의 수십 배). 예쁜 폰트를 여럿 얹으면 사이트가 눈에 띄게 느려집니다. 본문용 하나, 제목용 하나 — 두 벌이면 충분하고, 그 이상은 대개 사이트를 느리게만 만듭니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="chapter" id="v3c5">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">05</div>
+      <h2>이름과 길: 파일명과 경로</h2>
+      <p>여기서 겪는 문제는 대부분 문법이 아니라 <strong>이름을 잘못 지었거나 길을 잘못 알려 준</strong> 경우입니다. 사진이 안 뜨고 링크가 안 먹히는 일의 십중팔구가 이쪽입니다.</p>
+
+      <h3>index.html이라는 이름</h3>
+      <p>이 이름은 약속입니다. 누군가 주소창에 <code>mysite.com</code>만 치고 들어오면, 서버는 그 폴더에서 <code>index.html</code>을 찾아 보여 줍니다. 그래서 <strong>대문 페이지의 이름은 반드시 <code>index.html</code></strong>이어야 합니다. <code>home.html</code>이나 <code>메인.html</code>로 지으면 빈 화면을 만나게 됩니다.</p>
+
+      <h3>이름 짓는 규칙</h3>
+      <ul class="plain">
+        <li><strong>영문 소문자만</strong> 씁니다. 한글 파일명은 주소창에서 알아볼 수 없는 문자로 바뀝니다.</li>
+        <li><strong>띄어쓰기 대신 하이픈</strong>을 씁니다. <code>오늘의 기록.html</code>이 아니라 <code>today-note.html</code>.</li>
+        <li>사진 파일도 마찬가지입니다. <code>IMG_2891 복사본.JPG</code>는 <code>cover-2026.jpg</code>로 바꿔서 넣습니다.</li>
+      </ul>
+
+      <h3>폴더의 생김새</h3>
+      <pre><code>my-site/
+├── index.html          <span class="cm">← 대문</span>
+├── about.html          <span class="cm">← 소개</span>
+├── style.css           <span class="cm">← 전체 디자인</span>
+├── images/
+│   └── cover.jpg
+└── works/
+    └── first.html      <span class="cm">← 글 한 편</span></code></pre>
+
+      <h3>경로 — 파일에게 알려 주는 길</h3>
+      <p>파일이 서로를 부를 때는 <strong>자기 자신을 기준으로</strong> 길을 적습니다.</p>
+      <div class="table-wrap">
+        <table>
+          <tr><th>이렇게 쓰면</th><th>이런 뜻</th></tr>
+          <tr><td><code>style.css</code></td><td>나와 같은 폴더 안에 있는 파일</td></tr>
+          <tr><td><code>images/cover.jpg</code></td><td>내 옆의 images 폴더 안으로 들어가서</td></tr>
+          <tr><td><code>../style.css</code></td><td>한 칸 밖으로 나가서 (점 두 개가 "밖으로")</td></tr>
+          <tr><td><code>https://…</code></td><td>완전히 다른 사이트로</td></tr>
+        </table>
+      </div>
+      <p>그래서 <code>works/first.html</code>에서 대문의 <code>style.css</code>를 부르려면 <code>../style.css</code>라고 적어야 합니다. 한 칸 밖으로 나가야 하니까요. 사진이 깨져 보이면 대개 이 점 두 개가 빠졌거나 남았습니다.</p>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="chapter" id="v3c6">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">06</div>
+      <h2>인터넷에 올리기 — 주소가 생기는 순간</h2>
+      <p>지금까지 만든 파일은 디퍼님 컴퓨터 안에만 있습니다. 남이 보려면, <strong>24시간 켜져 있는 남의 컴퓨터</strong>에 그 폴더를 올려 두어야 합니다. 그 컴퓨터를 서버라고 부릅니다. 여기서 세 단어가 나옵니다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>단어</th><th>뜻</th><th>비유</th></tr>
+          <tr><td><strong>호스팅</strong></td><td>파일이 놓이는 자리를 빌리는 것</td><td>가게 자리</td></tr>
+          <tr><td><strong>도메인</strong></td><td>사람이 외우는 주소</td><td>가게 간판</td></tr>
+          <tr><td><strong>배포</strong></td><td>내 폴더를 그 자리에 올리는 행위</td><td>진열</td></tr>
+        </table>
+      </div>
+
+      <h3>실제 선택지</h3>
+      <p>둘 중 하나를 고르시면 됩니다. 코드를 아예 만지지 않는 길과, 우리가 만든 폴더를 올리는 길입니다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>방법</th><th>비용</th><th>품</th><th>어떤 경우에</th></tr>
+          <tr><td><strong>Netlify Drop</strong><br>netlify.com/drop</td><td>무료</td><td>5분</td><td>만든 폴더를 창에 끌어다 놓으면 끝. 첫 배포로 가장 좋습니다</td></tr>
+          <tr><td><strong>GitHub Pages</strong></td><td>무료</td><td>한나절</td><td>수정 이력이 남습니다. 나중에 옮겨도 좋습니다</td></tr>
+          <tr><td><strong>Vercel</strong></td><td>무료</td><td>반나절</td><td>사이트가 커지면 편해집니다</td></tr>
+          <tr><td><strong>아임웹 · 노션</strong></td><td>월 0~3만원</td><td>반나절</td><td>코드 없이 마우스로. 대신 형태가 정해져 있습니다</td></tr>
+        </table>
+      </div>
+
+      <p>디퍼님께는 <strong>Netlify Drop</strong>부터 권합니다. 회원가입 없이도 폴더를 끌어다 놓기만 하면 그 자리에서 주소가 하나 생깁니다. 내가 만든 것이 세상 어디서나 열린다는 감각을, 첫날에 한 번 겪어 보시는 편이 좋습니다. 그 뒤의 모든 공부가 훨씬 구체적인 일이 됩니다.</p>
+
+      <h3>주소를 사는 일</h3>
+      <p>처음 받는 주소는 <code>brave-fox-3f21.netlify.app</code>처럼 임시로 붙은 이름입니다. 내 이름의 주소를 갖고 싶으면 도메인을 삽니다. <strong>가비아</strong>나 <strong>후이즈</strong> 같은 곳에서 사고, <code>.com</code>은 대략 연 1만 5천 원에서 2만 원 선, <code>.kr</code>은 조금 더 저렴합니다. 매년 갱신하는 방식입니다.</p>
+      <p>다만 도메인은 급하지 않습니다. 사이트가 어느 정도 형태를 갖춘 뒤에 사도 늦지 않고, 이름을 정하는 데에도 시간이 걸리니까요.</p>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="chapter" id="v3c7">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">07</div>
+      <h2>저에게 말 거는 법</h2>
+      <p>실제로 만드는 동안 디퍼님이 가장 많이 하실 일은 코드를 쓰는 게 아니라 <strong>저에게 말하는 것</strong>입니다. 그래서 이 장이 이 권에서 가장 실용적인 자리입니다.</p>
+
+      <p>요청이 잘 전해지려면 세 가지가 있으면 됩니다. <strong>어디를 · 무엇이 · 어떻게.</strong> "예쁘게 해 줘"보다 "제목 아래 여백이 좁아 보여, 두 배쯤 넓혀 줘"가 훨씬 빨리 원하는 곳에 닿습니다. 원고에 빨간 펜으로 표시하듯 말씀하시면 됩니다.</p>
+
+      <h3>그대로 쓰셔도 되는 문장들</h3>
+      <div class="script">
+        <div class="script-item">
+          <div class="script-when">처음 만들 때</div>
+          <div class="script-say">"제 개인 사이트를 만들고 싶어. 첫 화면에는 이름, 짧은 소개, 쓴 글 목록, 연락처가 있으면 좋겠어. 분위기는 조용하고 여백이 넉넉했으면 해."</div>
+          <div class="script-why">완성된 그림이 없어도 괜찮습니다. 들어갈 것을 나열하고 분위기를 한 낱말로 얹어 주시면 첫 화면이 나옵니다. 거기서부터 고치는 편이 처음부터 정하는 것보다 쉽습니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">고치고 싶을 때</div>
+          <div class="script-say">"글 목록에서 제목과 설명 사이가 너무 붙어 있어. 조금 띄워 줘."</div>
+          <div class="script-why">위치(글 목록에서) · 대상(제목과 설명 사이) · 방향(띄워 줘). 이 세 조각이면 충분합니다. 수치는 모르셔도 됩니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">참고할 것이 있을 때</div>
+          <div class="script-say">"이 사이트처럼 글 목록이 날짜순으로 쭉 늘어선 형태가 좋아. 주소는 여기야: …"</div>
+          <div class="script-why">좋아하는 사이트 주소를 던져 주시는 게 형용사 열 개보다 정확합니다. 마음에 든 부분만 콕 집어 주시면 더 좋습니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">화면이 이상해졌을 때</div>
+          <div class="script-say">"이렇게 나왔어" — 그리고 화면에 뜬 글자를 통째로 붙여넣기</div>
+          <div class="script-why">영어로 길게 뜨는 빨간 글씨는 읽지 않으셔도 됩니다. 요약하지 말고 그대로 복사해 주시는 게 가장 좋습니다. 대부분 어디가 잘못됐는지 그 안에 적혀 있습니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">되돌리고 싶을 때</div>
+          <div class="script-say">"방금 바꾼 거 되돌려 줘. 그 전이 나았어."</div>
+          <div class="script-why">언제든 하셔도 되는 말입니다. 미안해하실 일이 전혀 아니고, 오히려 이 말을 자주 하시는 편이 결과가 좋습니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">무슨 일이 일어났는지 모르겠을 때</div>
+          <div class="script-say">"지금 뭘 한 건지 한 문장으로 설명해 줘."</div>
+          <div class="script-why">이해가 따라가지 못한 채로 쌓이면 나중에 혼자 고치기 어려워집니다. 물어보시는 만큼 사이트가 디퍼님 것이 됩니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">방향이 흐려질 때</div>
+          <div class="script-say">"지금까지 만든 걸 정리해 주고, 다음에 뭘 하면 좋을지 세 가지만 알려 줘."</div>
+          <div class="script-why">여러 날에 걸쳐 만들다 보면 어디까지 왔는지 흐려집니다. 이 말로 한 번씩 매듭을 지으시면 좋습니다.</div>
+        </div>
+      </div>
+
+      <h3>백업이라는 습관</h3>
+      <p>큰 변화를 주기 전에 <code>my-site</code> 폴더를 통째로 복사해 두시길 권합니다. <code>my-site-0827</code>처럼 날짜를 붙여 두면 됩니다. 원고를 고치기 전에 다른 이름으로 저장해 두는 것과 똑같은 습관이고, 이유도 똑같습니다. 나중에는 Git이라는 더 나은 방법을 쓰게 되겠지만, 지금은 이 정도로 충분합니다.</p>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="chapter" id="v3c8">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">08</div>
+      <h2>자주 마주칠 단어 스물넷</h2>
+      <p>대화 중에 튀어나올 때 당황하지 않으실 만큼만 적었습니다. 외우지 마시고, 나올 때마다 돌아와 보시면 됩니다.</p>
+
+      <dl class="glossary">
+        <div><dt>브라우저 <small>browser</small></dt><dd>크롬·사파리처럼 웹 페이지를 읽어 화면에 그려 주는 프로그램.</dd></div>
+        <div><dt>서버 <small>server</small></dt><dd>내 사이트 파일을 대신 갖고 있으면서 요청이 오면 내주는, 늘 켜져 있는 컴퓨터.</dd></div>
+        <div><dt>로컬 <small>local</small></dt><dd>내 컴퓨터 안. "로컬에서는 되는데"는 아직 인터넷에 안 올렸다는 뜻.</dd></div>
+        <div><dt>호스팅 <small>hosting</small></dt><dd>서버에 자리를 빌리는 일. 개인 사이트는 대개 무료로 됩니다.</dd></div>
+        <div><dt>도메인 <small>domain</small></dt><dd><code>mysite.com</code> 같은 주소. 매년 돈을 내고 빌립니다.</dd></div>
+        <div><dt>배포 <small>deploy</small></dt><dd>완성된 파일을 서버에 올려 세상에 보이게 하는 행위.</dd></div>
+        <div><dt>에디터 <small>editor</small></dt><dd>코드를 쓰는 편집기. VS Code가 가장 흔합니다.</dd></div>
+        <div><dt>터미널 <small>terminal</small></dt><dd>검은 화면에 명령을 글자로 적어 컴퓨터를 부리는 창. 무섭게 생겼지만 그냥 다른 방식의 대화창입니다.</dd></div>
+        <div><dt>깃 <small>git</small></dt><dd>파일이 언제 어떻게 바뀌었는지 기록해 두고 언제든 되돌리는 장치. 원고의 모든 버전을 잃지 않는 방법.</dd></div>
+        <div><dt>깃허브 <small>GitHub</small></dt><dd>그 기록을 인터넷에 보관해 주는 곳.</dd></div>
+        <div><dt>리포지토리 <small>repository</small></dt><dd>깃허브에 올라간 프로젝트 폴더 하나. 줄여서 '레포'.</dd></div>
+        <div><dt>커밋 <small>commit</small></dt><dd>"여기까지를 한 매듭으로 저장" 하는 것. 원고의 한 판본.</dd></div>
+        <div><dt>프레임워크 <small>framework</small></dt><dd>같은 걸 매번 새로 짓지 않도록 미리 짜 둔 뼈대. React·Next.js 같은 이름들.</dd></div>
+        <div><dt>라이브러리 <small>library</small></dt><dd>남이 만들어 둔 기능 꾸러미. 가져다 씁니다.</dd></div>
+        <div><dt>반응형 <small>responsive</small></dt><dd>휴대폰에서도 화면이 알맞게 접히도록 만든 것. 요즘은 필수입니다.</dd></div>
+        <div><dt>렌더링 <small>rendering</small></dt><dd>코드를 화면에 실제로 그리는 일.</dd></div>
+        <div><dt>캐시 <small>cache</small></dt><dd>브라우저가 이전 화면을 기억해 둔 것. 고쳤는데 안 바뀌어 보이면 <code>⌘⇧R</code>로 새로고침.</dd></div>
+        <div><dt>API</dt><dd>다른 서비스의 정보를 가져다 쓰는 창구. 지금은 몰라도 됩니다.</dd></div>
+        <div><dt>SEO</dt><dd>검색에 잘 걸리게 하는 일. 제목과 설명을 성실히 쓰는 게 절반입니다.</dd></div>
+        <div><dt>파비콘 <small>favicon</small></dt><dd>브라우저 탭에 뜨는 작은 그림.</dd></div>
+        <div><dt>버그 <small>bug</small></dt><dd>의도와 다르게 동작하는 부분. 잘못이 아니라 만드는 과정의 일부입니다.</dd></div>
+        <div><dt>디버깅 <small>debugging</small></dt><dd>그걸 찾아 고치는 일. 시간의 대부분이 여기 쓰입니다.</dd></div>
+        <div><dt>오픈소스 <small>open source</small></dt><dd>누구나 보고 가져다 쓸 수 있게 공개된 코드.</dd></div>
+        <div><dt>개발자 도구 <small>DevTools</small></dt><dd>브라우저에서 <code>⌥⌘I</code>로 열리는 창. 지금 보는 화면의 코드를 그대로 들여다볼 수 있습니다.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="chapter" id="v3c9">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">09</div>
+      <h2>첫 2주, 하루 30분</h2>
+      <p>한꺼번에 하지 않으셔도 됩니다. 하루 30분씩 2주면 인터넷에 자기 주소를 가진 사이트가 생깁니다. 순서는 쉬운 것에서 시작해 성취가 먼저 오도록 짰습니다.</p>
+
+      <div class="plan">
+        <div class="plan-row"><div class="day">1일차</div><div class="what">1장 실습 — 첫 파일 열기<small>index.html을 만들어 브라우저로 열어 봅니다. 오늘의 목표는 이것뿐입니다.</small></div></div>
+        <div class="plan-row"><div class="day">2일차</div><div class="what">VS Code 설치<small>무료입니다. 텍스트 편집보다 훨씬 편하고, 오타를 색으로 알려 줍니다.</small></div></div>
+        <div class="plan-row"><div class="day">3일차</div><div class="what">3장의 페이지를 그대로 옮겨 적기<small>복사가 아니라 손으로 쳐 보시면 태그가 몸에 남습니다.</small></div></div>
+        <div class="plan-row"><div class="day">4일차</div><div class="what">내용을 내 것으로 바꾸기<small>이름, 소개, 글 목록을 실제 내용으로. 이때 처음으로 '내 사이트' 같아집니다.</small></div></div>
+        <div class="plan-row"><div class="day">5일차</div><div class="what">style.css 붙이기<small>4장의 CSS를 그대로 넣고, 색과 글자 크기만 마음대로 바꿔 봅니다.</small></div></div>
+        <div class="plan-row rest"><div class="day">6–7일차</div><div class="what">쉬기, 또는 좋아하는 사이트 모으기<small>마음에 드는 사이트 세 곳의 주소를 적어 두시면 다음 주에 씁니다.</small></div></div>
+        <div class="plan-row"><div class="day">8일차</div><div class="what">Netlify Drop으로 첫 배포<small>폴더를 끌어다 놓습니다. 주소가 생깁니다. 여기가 이 2주의 고비이자 정점입니다.</small></div></div>
+        <div class="plan-row"><div class="day">9일차</div><div class="what">휴대폰으로 열어 보기<small>글자가 작거나 넘치는 곳을 찾습니다. 저에게 말씀하시면 고쳐 드립니다.</small></div></div>
+        <div class="plan-row"><div class="day">10일차</div><div class="what">두 번째 페이지 만들기<small>소개 페이지(about.html)를 만들고 대문에서 링크로 잇습니다.</small></div></div>
+        <div class="plan-row"><div class="day">11일차</div><div class="what">글 한 편 올리기<small>이미 써 두신 글 한 편을 페이지로 옮겨 봅니다. 여기서 사이트가 살아 있는 것이 됩니다.</small></div></div>
+        <div class="plan-row"><div class="day">12일차</div><div class="what">사진 한 장 넣기<small>images 폴더, 파일명 규칙, alt 설명 — 5장이 실제로 쓰이는 날입니다.</small></div></div>
+        <div class="plan-row"><div class="day">13일차</div><div class="what">모아 둔 사이트를 참고해 결 다듬기<small>글꼴, 여백, 색. 저에게 "이 사이트처럼"이라고 말씀하시면 됩니다.</small></div></div>
+        <div class="plan-row"><div class="day">14일차</div><div class="what">주소 하나 정하기<small>도메인은 나중에 사도 됩니다. 오늘은 이름만 정해 두셔도 충분합니다.</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 부록 -->
+  <section class="chapter" id="v3c10">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">부록</div>
+      <h2>지금은 몰라도 되는 것들</h2>
+      <p>코딩을 배우려고 검색하면 금세 만나게 되는 이름들입니다. 하나같이 중요해 보이지만, <strong>개인 웹사이트를 만드는 데는 지금 전혀 필요하지 않습니다.</strong> 몰라서 못 하는 게 아니라, 아직 쓸 자리가 없는 것들입니다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>이름</th><th>언제 필요해지는가</th></tr>
+          <tr><td>React · Vue · Next.js</td><td>페이지가 수십 장이 되고 화면이 복잡하게 움직여야 할 때</td></tr>
+          <tr><td>TypeScript</td><td>코드가 커져서 실수를 미리 막아야 할 때</td></tr>
+          <tr><td>npm · 빌드 · 번들러</td><td>남이 만든 도구를 여럿 조합해 쓸 때</td></tr>
+          <tr><td>데이터베이스 · 백엔드</td><td>방문자가 글을 남기거나 로그인을 해야 할 때</td></tr>
+          <tr><td>Docker · CI/CD</td><td>여럿이 함께 개발할 때</td></tr>
+          <tr><td>Tailwind · 디자인 시스템</td><td>비슷한 화면을 여러 장 반복해 만들 때</td></tr>
+        </table>
+      </div>
+
+      <p>이 이름들은 필요해지는 날 다시 찾아옵니다. 그때 배우면 훨씬 빨리 배워집니다. 쓸 자리를 이미 알고 있으니까요.</p>
+
+      <div class="closing">
+        <p>웹사이트를 만드는 일은 생각보다 글 쓰는 일과 닮았습니다. 처음에 쓴 것은 대개 마음에 들지 않고, 고치는 동안 형태가 잡히고, 어느 날 남에게 보여도 되겠다 싶은 순간이 옵니다.</p>
+        <p>다른 점이 있다면, 여기서는 언제든 되돌릴 수 있고 아무것도 영영 망가지지 않는다는 것입니다. 그러니 마음 편히 눌러 보셔도 됩니다. 막히는 자리에서 부르시면 됩니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="next c-dusk">
+    <span class="next-label">다음 권</span>
+    <a href="#v4">제4권 · 앱 만들기 &rarr;</a>
+  </div>
+</section>
+
+<section class="vol" id="v4" data-hue="dusk">
+
+  <header class="cover">
+    <div class="eyebrow">제4권</div>
+    <h1>앱 만들기</h1>
+    <p class="lede">앱을 만들고 싶을 때 가장 먼저 정해야 하는 건 기술이 아니라 '어떤 앱인가'입니다. 세 갈래를 구분하는 데서 시작해, 대부분의 경우에 가장 빠른 길을 따라갑니다.</p>
+    <div class="cover-meta">
+      <div><b>읽는 데</b> 30분</div>
+      <div><b>먼저 읽으면 좋은 것</b> 3권</div>
+      <div><b>얻는 것</b> 갈림길 판단 · 4주 계획</div>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <h2>차례</h2>
+    <ol>
+      <li><a href="#v4c0"><span class="n">00</span><span class="t">'앱'이라는 말의 세 가지 뜻</span></a></li>
+      <li><a href="#v4c1"><span class="n">01</span><span class="t">만들기 전에 채우는 한 문장</span></a></li>
+      <li><a href="#v4c2"><span class="n">02</span><span class="t">코드보다 먼저, 화면 세 장</span></a></li>
+      <li><a href="#v4c3"><span class="n">03</span><span class="t">가장 빠른 길 · 웹앱</span></a></li>
+      <li><a href="#v4c4"><span class="n">04</span><span class="t">데이터는 어디에 남는가</span></a></li>
+      <li><a href="#v4c5"><span class="n">05</span><span class="t">코드 없이 만드는 도구들</span></a></li>
+      <li><a href="#v4c6"><span class="n">06</span><span class="t">진짜 폰 앱이 필요할 때</span></a></li>
+      <li><a href="#v4c7"><span class="n">07</span><span class="t">저와 함께 만드는 순서</span></a></li>
+      <li><a href="#v4c8"><span class="n">08</span><span class="t">처음 만드는 사람이 밟는 함정 여덟</span></a></li>
+      <li><a href="#v4c9"><span class="n">09</span><span class="t">첫 앱 4주</span></a></li>
+      <li><a href="#v4c10"><span class="n">부록</span><span class="t">앱 용어 스물</span></a></li>
+    </ol>
+  </nav>
+
+  <!-- 00 -->
+  <section class="chapter" id="v4c0">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">00</div>
+      <h2>'앱'이라는 말의 세 가지 뜻</h2>
+      <p>"앱을 만들고 싶다"는 말은 실제로는 세 가지 중 하나를 뜻합니다. 어느 쪽인지 정하지 않고 시작하면, 필요 없는 어려움을 한참 겪게 됩니다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>갈래</th><th>어떤 것</th><th>드는 품</th><th>비용</th></tr>
+          <tr><td><strong>웹앱</strong></td><td>주소를 열면 뜨는 것. 폰에서도 컴퓨터에서도 열립니다</td><td>가장 적음</td><td>대개 무료</td></tr>
+          <tr><td><strong>폰 앱</strong></td><td>앱스토어에서 내려받아 아이콘이 생기는 것</td><td>가장 많음</td><td>연 등록비 + 심사</td></tr>
+          <tr><td><strong>노코드 앱</strong></td><td>정해진 틀에 내용을 채워 만드는 것</td><td>중간</td><td>월 사용료</td></tr>
+        </table>
+      </div>
+
+      <div class="note">
+        <span class="tag">먼저 알아 두면 좋은 사실</span>
+        <p>처음 만드는 것의 대부분은 <strong>웹앱으로 충분합니다.</strong> 게다가 요즘 폰은 웹 주소를 홈 화면에 추가하면 아이콘이 생기고, 열었을 때 주소창 없이 앱처럼 뜹니다. 사용하는 사람 입장에서는 앱과 구분이 잘 안 됩니다. 앱스토어로 가는 길은 그것으로 안 되는 이유가 생겼을 때(6장) 밟으면 됩니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 -->
+  <section class="chapter" id="v4c1">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">01</div>
+      <h2>만들기 전에 채우는 한 문장</h2>
+      <p>기획서는 필요 없습니다. 대신 이 한 문장을 채우실 수 있으면 됩니다.</p>
+
+      <div class="script">
+        <div class="script-item">
+          <div class="script-when">채워 보기</div>
+          <div class="script-say">"이 앱은 <u>[누가]</u>가 <u>[언제]</u>일 때 <u>[무엇]</u>을 할 수 있게 해 준다."</div>
+          <div class="script-why">예 — "이 앱은 <b>글 쓰는 사람</b>이 <b>하루를 마칠 때</b> <b>오늘 쓴 분량을 기록</b>할 수 있게 해 준다."</div>
+        </div>
+      </div>
+
+      <p>세 칸 중 가장 어려운 건 <strong>[언제]</strong>입니다. 사람이 언제 이걸 여는지가 그려지지 않으면, 잘 만들어도 아무도 열지 않습니다. 반대로 "자기 전에", "출근길에"처럼 자리가 또렷하면 만들 것이 자연히 줄어듭니다.</p>
+
+      <h3>한 번에 하나만</h3>
+      <p>첫 앱에서 기능은 <strong>하나</strong>여야 합니다. 기록하는 앱이면 기록만, 모으는 앱이면 모으기만. 로그인·알림·통계·공유는 전부 나중입니다. 이 원칙 하나만 지켜도 첫 앱이 세상에 나올 확률이 크게 올라갑니다.</p>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="chapter" id="v4c2">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">02</div>
+      <h2>코드보다 먼저, 화면 세 장</h2>
+      <p>코드는 화면이 정해진 뒤에 쓰는 것입니다. 종이 세 장이면 됩니다. 잘 그릴 필요는 전혀 없습니다.</p>
+
+      <ol class="steps">
+        <li><strong>첫 화면</strong> — 열었을 때 보이는 것. 무엇을 하는 앱인지 3초 안에 보여야 합니다.</li>
+        <li><strong>하는 화면</strong> — 실제로 일을 하는 자리. 입력하거나 고르는 곳.</li>
+        <li><strong>결과 화면</strong> — 하고 나면 무엇이 보이는지. 여기가 비면 사람은 다시 오지 않습니다.</li>
+      </ol>
+
+      <p>그린 다음 화살표로 잇습니다. 어디를 누르면 어디로 가는지. 이 세 장과 화살표가 <strong>설계도의 전부</strong>입니다.</p>
+
+      <div class="note quiet">
+        <span class="tag">그린 종이를 그대로 쓰는 법</span>
+        <p>손으로 그린 화면을 사진으로 찍어 저에게 보여 주시면 됩니다. 그림을 읽고 그대로 화면을 만들 수 있습니다. 말로 설명하는 것보다 이 편이 훨씬 정확하고, 삐뚤빼뚤해도 아무 상관 없습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="chapter" id="v4c3">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">03</div>
+      <h2>가장 빠른 길 · 웹앱</h2>
+      <p>3권에서 만든 웹사이트와 웹앱의 차이는 하나뿐입니다. <strong>웹사이트는 보여 주기만 하고, 웹앱은 기억합니다.</strong></p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th></th><th>웹사이트</th><th>웹앱</th></tr>
+          <tr><td>하는 일</td><td>내용을 보여 준다</td><td>사람이 넣은 것을 받아 남긴다</td></tr>
+          <tr><td>예</td><td>소개 페이지, 글 목록</td><td>기록장, 체크리스트, 계산기, 설문</td></tr>
+          <tr><td>필요한 것</td><td>HTML · CSS</td><td>+ JavaScript · 저장할 자리</td></tr>
+        </table>
+      </div>
+
+      <p>3권을 읽으셨다면 앞의 두 언어는 이미 만나셨습니다. 여기서 더해지는 건 <strong>움직임</strong>(버튼을 누르면 무슨 일이 일어나는가)과 <strong>기억</strong>(그 결과가 어디에 남는가)입니다. 이 둘 중 어려운 쪽은 기억이고, 그래서 다음 장을 따로 두었습니다.</p>
+
+      <h3>첫 웹앱으로 좋은 것</h3>
+      <ul class="plain">
+        <li>오늘 쓴 글자 수를 적어 두고 이번 주 합계를 보여 주는 기록장</li>
+        <li>반복되는 준비물을 체크하고 다음에 다시 불러오는 목록</li>
+        <li>몇 가지를 입력하면 결과 한 줄을 내주는 작은 계산기</li>
+      </ul>
+      <p>공통점이 있습니다. 셋 다 <strong>혼자 쓰는 것</strong>이고 <strong>화면이 하나</strong>입니다. 첫 앱은 이 두 조건을 지키시는 편이 좋습니다.</p>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="chapter" id="v4c4">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">04</div>
+      <h2>데이터는 어디에 남는가</h2>
+      <p>앱을 만들다 처음 만나는 진짜 갈림길입니다. 사람이 넣은 것을 어디에 둘 것인가. 셋 중에 고르시면 됩니다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>어디에</th><th>이런 성질</th><th>이럴 때</th></tr>
+          <tr><td><strong>그 사람의 브라우저</strong></td><td>그 폰·그 컴퓨터에만 남습니다. 다른 기기에서는 안 보이고, 기록을 지우면 사라집니다</td><td>혼자 쓰는 첫 앱. 준비가 거의 필요 없습니다</td></tr>
+          <tr><td><strong>구글 스프레드시트</strong></td><td>익숙한 표에 쌓입니다. 내가 직접 열어 고칠 수 있습니다</td><td>여러 사람이 넣은 걸 모아야 할 때</td></tr>
+          <tr><td><strong>데이터베이스</strong></td><td>제대로 된 저장소. 로그인·검색·대량 처리가 됩니다</td><td>남이 계정을 만들고 쓰는 앱이 될 때</td></tr>
+        </table>
+      </div>
+
+      <p>순서를 권해 드리자면 <strong>위에서 아래로</strong>입니다. 처음부터 데이터베이스를 붙이면 배울 것이 갑자기 서너 배로 늘고, 대개 거기서 멈춥니다. 브라우저 저장으로 만들어 두 주 써 보시고, 부족한 이유가 생겼을 때 옮기면 됩니다. 옮기는 일은 생각보다 간단합니다.</p>
+
+      <div class="note">
+        <span class="tag">꼭 기억할 것</span>
+        <p>브라우저에 저장하는 방식은 <strong>백업이 되지 않습니다.</strong> 브라우저 기록을 지우면 함께 사라집니다. 그래서 이 방식으로 만들 때는 "내보내기" 버튼을 하나 두는 게 좋습니다. 지금까지 쌓인 것을 파일로 받아 두는 단추 하나면 충분합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="chapter" id="v4c5">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">05</div>
+      <h2>코드 없이 만드는 도구들</h2>
+      <p>코드를 아예 쓰지 않고 만드는 길도 있습니다. 정해진 틀 안에서 빠르게 만들 수 있고, 대신 틀 밖으로는 못 나갑니다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>도구</th><th>어떤 것</th><th>비용</th><th>이럴 때</th></tr>
+          <tr><td><strong>Glide</strong></td><td>구글 스프레드시트를 앱 화면으로 바꿔 줍니다</td><td>무료 시작, 유료 월 2만원대~</td><td>표로 정리되는 것 — 목록, 신청, 재고</td></tr>
+          <tr><td><strong>Softr</strong></td><td>회원 페이지가 있는 사이트형 앱</td><td>무료 시작, 유료 월 3만원대~</td><td>회원만 보는 자료실, 커뮤니티</td></tr>
+          <tr><td><strong>Notion</strong></td><td>이미 쓰던 문서를 그대로 공개</td><td>대개 무료</td><td>정리해서 보여 주기만 하면 될 때</td></tr>
+          <tr><td><strong>Airtable</strong></td><td>표와 데이터베이스의 중간</td><td>무료 시작</td><td>데이터가 먼저 필요할 때</td></tr>
+          <tr><td><strong>Bubble</strong></td><td>본격적인 앱까지 만들 수 있음</td><td>유료 월 4만원대~</td><td>기능이 많은 서비스. 배울 것도 많습니다</td></tr>
+        </table>
+      </div>
+
+      <h3>갈림길에서 고르는 법</h3>
+      <ul class="plain">
+        <li><strong>표로 설명되는 것</strong>이면 노코드가 빠릅니다. 목록·신청·예약처럼 행과 열로 그려지는 일들입니다.</li>
+        <li><strong>화면의 생김새가 중요하거나</strong> 남과 달라야 한다면 코드로 만드는 편이 낫습니다. 틀 안에서는 결국 비슷해집니다.</li>
+        <li><strong>매달 나가는 비용</strong>을 미리 보십시오. 무료로 시작해 사람이 늘면 요금이 오르는 구조가 많습니다.</li>
+        <li><strong>내 것을 가져 나올 수 있는지</strong> 확인하십시오. 나중에 옮길 때 데이터를 내보낼 수 있어야 합니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="chapter" id="v4c6">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">06</div>
+      <h2>진짜 폰 앱이 필요할 때</h2>
+      <p>앱스토어에 올리는 앱이 꼭 필요한 경우는 생각보다 적습니다. 아래 중 하나에 해당할 때입니다.</p>
+
+      <ul class="plain">
+        <li><strong>알림을 보내야 할 때</strong> — 사람이 앱을 안 열어도 먼저 말을 걸어야 하는 경우</li>
+        <li><strong>카메라·위치·센서를 깊이 써야 할 때</strong></li>
+        <li><strong>인터넷 없이도 돌아가야 할 때</strong></li>
+        <li><strong>앱스토어에 있다는 사실 자체가 필요할 때</strong> — 신뢰나 홍보의 이유</li>
+      </ul>
+
+      <h3>드는 비용과 시간</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th></th><th>애플 App Store</th><th>구글 Play</th></tr>
+          <tr><td>등록비</td><td>연 $99</td><td>최초 1회 $25</td></tr>
+          <tr><td>심사</td><td>보통 하루~며칠</td><td>보통 하루 안팎</td></tr>
+          <tr><td>고칠 때마다</td><td>다시 심사</td><td>다시 심사</td></tr>
+          <tr><td>거절</td><td>드물지 않습니다</td><td>드물지 않습니다</td></tr>
+        </table>
+      </div>
+
+      <p>가장 큰 비용은 사실 돈이 아니라 <strong>고칠 때마다 심사를 기다려야 한다는 점</strong>입니다. 웹앱은 고치면 그 자리에서 반영되지만, 폰 앱은 며칠이 걸립니다. 자주 고치며 다듬어야 하는 초기에는 이 차이가 꽤 큽니다.</p>
+
+      <div class="note quiet">
+        <span class="tag">중간 길이 있습니다</span>
+        <p>웹앱으로 만들어 두고 <strong>홈 화면에 추가</strong>하게 하는 방식입니다. 아이콘이 생기고 전체 화면으로 열립니다. 알림까지 필요한 게 아니라면 이 방식으로 충분한 경우가 많고, 실제로 그렇게 쓰이는 서비스도 많습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section class="chapter" id="v4c7">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">07</div>
+      <h2>저와 함께 만드는 순서</h2>
+      <p>3권 7장의 요청법 위에, 앱을 만들 때만 필요한 순서를 더한 자리입니다. 원칙은 하나입니다. <strong>한 번에 하나씩 시킵니다.</strong> 여러 기능을 한꺼번에 부탁하면 어디가 어긋났는지 찾기 어려워집니다.</p>
+
+      <div class="script">
+        <div class="script-item">
+          <div class="script-when">첫째 — 한 장으로 정하기</div>
+          <div class="script-say">"이런 앱을 만들고 싶어. [한 문장]. 만들기 전에 정해야 할 것들을 목록으로 만들어 줘. 내가 하나씩 답할게."</div>
+          <div class="script-why">1권 4장의 '되묻게 만들기'입니다. 여기서 정해 둔 것이 나중에 되돌리는 일을 줄여 줍니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">둘째 — 화면 하나만</div>
+          <div class="script-say">"먼저 화면 하나만 만들어 줘. 아직 저장은 안 해도 되고, 눌리기만 하면 돼."</div>
+          <div class="script-why">보이는 것이 먼저 있어야 판단할 수 있습니다. 속을 다 만든 뒤 화면을 만들면, 다 만들고 나서 방향이 틀린 걸 알게 됩니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">셋째 — 남기기</div>
+          <div class="script-say">"이제 입력한 게 남도록 해 줘. 우선 이 브라우저에만 저장되는 방식으로."</div>
+          <div class="script-why">4장의 첫 번째 방식입니다. 여기까지 오면 이미 '앱'입니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">넷째 — 하나씩 붙이기</div>
+          <div class="script-say">"이제 [기능 하나]를 더해 줘. 지금 되는 건 건드리지 말고."</div>
+          <div class="script-why">뒤의 조건이 중요합니다. 이 말이 없으면 새 기능을 넣다가 되던 게 깨지는 일이 생깁니다.</div>
+        </div>
+        <div class="script-item">
+          <div class="script-when">막혔을 때</div>
+          <div class="script-say">"버튼을 눌러도 아무 일이 안 일어나. 화면에 뜬 글자는 이거야: [붙여넣기]"</div>
+          <div class="script-why">무엇을 눌렀고 무엇을 기대했고 실제로 뭐가 일어났는지 — 이 셋만 주시면 대개 바로 찾습니다.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section class="chapter" id="v4c8">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">08</div>
+      <h2>처음 만드는 사람이 밟는 함정 여덟</h2>
+      <p>대부분의 첫 앱이 세상에 못 나오는 이유는 실력이 아니라 이 여덟 개 중 하나입니다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>함정</th><th>대신 이렇게</th></tr>
+          <tr><td>기능을 다 넣고 시작</td><td>기능 하나로 시작해 두 주 써 본 뒤 더합니다</td></tr>
+          <tr><td>로그인부터 만들기</td><td>혼자 쓰는 걸로 먼저 만듭니다. 로그인은 남이 쓸 때 붙입니다</td></tr>
+          <tr><td>디자인부터 다듬기</td><td>움직이게 먼저, 예쁘게 나중에. 순서가 바뀌면 다시 그리게 됩니다</td></tr>
+          <tr><td>완성한 뒤 보여 주기</td><td>못생긴 상태로 한 명에게 보여 줍니다. 그 한 명이 방향을 바꿔 줍니다</td></tr>
+          <tr><td>백업 없이 고치기</td><td>크게 손대기 전 폴더를 통째로 복사해 둡니다</td></tr>
+          <tr><td>이름과 도메인 먼저 사기</td><td>만들다 보면 이름이 바뀝니다. 나중에 사도 늦지 않습니다</td></tr>
+          <tr><td>데이터 구조를 나중에 정하기</td><td>무엇을 저장할지는 화면 다음, 기능 전에 정합니다</td></tr>
+          <tr><td>혼자 오래 붙들기</td><td>두 시간 막히면 물어봅니다. 대개 15분이면 풀리는 것들입니다</td></tr>
+        </table>
+      </div>
+
+      <p>여덟 개를 관통하는 한 문장이 있습니다. <strong>작게 만들어 일찍 보여 준다.</strong> 2권 5장에서 한 이야기와 같은 말이고, 만드는 일에서는 거의 언제나 옳습니다.</p>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section class="chapter" id="v4c9">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">09</div>
+      <h2>첫 앱 4주</h2>
+      <p>하루 30분 기준입니다. 4주 뒤에는 주소가 있고, 기록이 남고, 남에게 보여 줄 수 있는 것이 하나 생깁니다.</p>
+
+      <div class="plan">
+        <div class="plan-row"><div class="day">1주 · 정하기</div><div class="what">한 문장 채우기 · 화면 세 장 그리기<small>코드는 한 줄도 쓰지 않는 주입니다. 종이와 연필이면 됩니다.</small></div></div>
+        <div class="plan-row"><div class="day">2주 · 화면</div><div class="what">첫 화면을 실제로 만들기<small>아직 아무것도 저장되지 않아도 됩니다. 눌리기만 하면 성공입니다.</small></div></div>
+        <div class="plan-row"><div class="day">3주 · 기억</div><div class="what">입력한 것이 남게 하기 · 내보내기 단추 하나<small>여기서 웹사이트가 앱이 됩니다. 4장의 첫 번째 방식으로.</small></div></div>
+        <div class="plan-row"><div class="day">4주 · 내보내기</div><div class="what">인터넷에 올리고 폰 홈 화면에 추가 · 한 명에게 보여 주기<small>3권 6장의 방식 그대로입니다. 마지막 항목이 이 4주에서 가장 중요합니다.</small></div></div>
+      </div>
+
+      <div class="note">
+        <span class="tag">4주가 끝난 뒤</span>
+        <p>두 주 정도는 <strong>더 만들지 말고 쓰기만</strong> 해 보시길 권합니다. 쓰다 보면 무엇이 불편한지 몸이 알려 줍니다. 그 목록이 다음에 만들 것의 가장 정확한 설계도가 됩니다. 상상해서 만든 기능보다 언제나 낫습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 부록 -->
+  <section class="chapter" id="v4c10">
+    <div class="chapter-body">
+      <div class="chapter-eyebrow">부록</div>
+      <h2>앱 용어 스물</h2>
+      <p>3권 부록의 단어들 위에, 앱을 만들 때 새로 만나게 되는 말들입니다.</p>
+
+      <dl class="glossary">
+        <div><dt>웹앱 <small>web app</small></dt><dd>주소로 여는 앱. 설치가 필요 없고 고치면 바로 반영됩니다.</dd></div>
+        <div><dt>네이티브 앱 <small>native app</small></dt><dd>앱스토어에서 내려받아 설치하는 앱.</dd></div>
+        <div><dt>PWA</dt><dd>웹앱을 홈 화면에 추가해 앱처럼 쓰게 하는 방식.</dd></div>
+        <div><dt>노코드 <small>no-code</small></dt><dd>코드 없이 화면을 조립해 만드는 도구들.</dd></div>
+        <div><dt>프론트엔드 <small>front-end</small></dt><dd>사람이 보고 누르는 쪽.</dd></div>
+        <div><dt>백엔드 <small>back-end</small></dt><dd>보이지 않는 쪽 — 저장하고 계산하고 보내는 일.</dd></div>
+        <div><dt>데이터베이스 <small>database</small></dt><dd>정보를 체계적으로 쌓아 두고 꺼내 쓰는 저장소.</dd></div>
+        <div><dt>로컬 스토리지 <small>localStorage</small></dt><dd>그 사람의 브라우저 안에만 남는 저장 자리.</dd></div>
+        <div><dt>API</dt><dd>다른 서비스의 기능을 가져다 쓰는 창구. 지도·날씨·결제 등.</dd></div>
+        <div><dt>인증 <small>auth</small></dt><dd>로그인. 누가 접속했는지 확인하는 장치.</dd></div>
+        <div><dt>세션 <small>session</small></dt><dd>로그인한 상태가 유지되는 동안.</dd></div>
+        <div><dt>UI</dt><dd>화면에 보이는 것들 — 버튼, 목록, 입력칸.</dd></div>
+        <div><dt>UX</dt><dd>쓰는 사람이 겪는 흐름과 느낌.</dd></div>
+        <div><dt>와이어프레임 <small>wireframe</small></dt><dd>색과 그림 없이 뼈대만 그린 화면. 2장에서 그린 세 장이 이것입니다.</dd></div>
+        <div><dt>프로토타입 <small>prototype</small></dt><dd>진짜처럼 눌러 볼 수 있는 시험판.</dd></div>
+        <div><dt>MVP</dt><dd>제일 작게 만든 첫 판. 기능 하나짜리 첫 앱이 여기 해당합니다.</dd></div>
+        <div><dt>푸시 알림 <small>push</small></dt><dd>앱이 닫혀 있어도 먼저 말을 거는 기능.</dd></div>
+        <div><dt>스토어 심사 <small>review</small></dt><dd>앱을 올리기 전 받는 검사. 고칠 때마다 다시 받습니다.</dd></div>
+        <div><dt>버전 <small>version</small></dt><dd>몇 번째 판인지. 1.0, 1.1처럼 적습니다.</dd></div>
+        <div><dt>내보내기 <small>export</small></dt><dd>쌓인 자료를 파일로 받아 두는 것. 백업의 최소 형태입니다.</dd></div>
+      </dl>
+
+      <div class="closing">
+        <p>네 권이 여기서 끝납니다. 묻는 법에서 시작해 아이디어를 꺼내고, 그것을 화면으로 만들고, 기억하게 만드는 데까지 왔습니다.</p>
+        <p>네 권을 관통하는 말이 하나 있다면 이것일 듯합니다. <strong>작게 만들어 일찍 내보내고, 반응을 보고 다시 만든다.</strong> 글도 그렇게 쓰이고, 앱도 그렇게 만들어집니다.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="next c-series">
+    <span class="next-label">다음 권</span>
+    <a href="#cover">표지로 돌아가기 &rarr;</a>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  var vols = Array.prototype.slice.call(document.querySelectorAll(".vol"));
+  var volLinks = Array.prototype.slice.call(document.querySelectorAll(".vol-nav a, .chips a, .sheet-vols a"));
+  var sheet = document.getElementById("sheet");
+  var sheetChs = document.querySelector(".sheet-chs");
+  var tocBtn = document.querySelector(".toc-btn");
+  var chNav = document.querySelector(".ch-nav");
+  var bar = document.querySelector(".progress i");
+  var chLinks = [], chSecs = [], ticking = false, current = null;
+
+  function buildChapterNav(vol) {
+    chNav.innerHTML = "";
+    sheetChs.innerHTML = "";
+    chLinks = []; chSecs = [];
+    Array.prototype.forEach.call(vol.querySelectorAll(".chapter"), function (sec) {
+      var eyebrow = sec.querySelector(".chapter-eyebrow");
+      var h2 = sec.querySelector("h2");
+      if (!h2) return;
+      var a = document.createElement("a");
+      a.href = "#" + sec.id;
+      a.innerHTML = '<span class="n"></span><span class="t"></span>';
+      a.querySelector(".n").textContent = eyebrow ? eyebrow.textContent.trim() : "";
+      a.querySelector(".t").textContent = h2.textContent.trim();
+      chNav.appendChild(a);
+      chLinks.push(a); chSecs.push(sec);
+
+      var b = a.cloneNode(true);
+      sheetChs.appendChild(b);
+    });
+  }
+
+  function show(id, keepScroll) {
+    var vol = document.getElementById(id) || document.getElementById("v0");
+    if (current === vol) return;
+    current = vol;
+    vols.forEach(function (v) { v.classList.toggle("on", v === vol); });
+    root.setAttribute("data-hue", vol.getAttribute("data-hue") || "series");
+    volLinks.forEach(function (a) { a.classList.toggle("on", a.getAttribute("data-vol") === vol.id); });
+    buildChapterNav(vol);
+    var lbl = document.querySelector(".sheet-chs-label");
+    if (lbl) lbl.style.display = vol.id === "v0" ? "none" : "";
+    if (!keepScroll) jumpTop();
+    paint();
+  }
+
+  function jumpTop() {
+    var prev = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+    window.scrollTo(0, 0);
+    requestAnimationFrame(function () {
+      window.scrollTo(0, 0);
+      root.style.scrollBehavior = prev;
+    });
+  }
+
+  function paint() {
+    ticking = false;
+    var h = document.scrollingElement || document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    if (bar) bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+    var here = -1;
+    for (var i = 0; i < chSecs.length; i++) {
+      if (chSecs[i].getBoundingClientRect().top <= 140) here = i;
+    }
+    for (var j = 0; j < chLinks.length; j++) {
+      var on = j === here;
+      chLinks[j].classList.toggle("on", on);
+      if (on) chLinks[j].setAttribute("aria-current", "true");
+      else chLinks[j].removeAttribute("aria-current");
+    }
+  }
+
+  function fromHash() {
+    var hash = (location.hash || "").replace("#", "");
+    if (!hash || hash === "cover") { show("v0"); return; }
+    var m = hash.match(/^(v\d+)/);
+    var volId = m ? m[1] : "v0";
+    var wasSame = current && current.id === volId;
+    show(volId, wasSame);
+    var target = document.getElementById(hash);
+    if (target && hash !== volId) {
+      requestAnimationFrame(function () {
+        target.scrollIntoView({ behavior: wasSame ? "smooth" : "auto", block: "start" });
+      });
+    } else if (!wasSame) {
+      jumpTop();
+    }
+  }
+
+  /* 해시 변경이 막힌 환경(내장 뷰어 등)에서도 권 이동이 되도록 직접 처리한다 */
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest ? e.target.closest("a[href^='#']") : null;
+    if (!a) return;
+    var hash = a.getAttribute("href").slice(1);
+    var volId = hash === "cover" || !hash ? "v0" : (hash.match(/^(v\d+)/) || [])[1];
+    if (!volId) return;
+    e.preventDefault();
+    closeSheet();
+    var wasSame = current && current.id === volId;
+    show(volId, wasSame);
+    var target = document.getElementById(hash);
+    if (target && hash !== volId) {
+      target.scrollIntoView({ behavior: wasSame ? "smooth" : "auto", block: "start" });
+    } else if (!wasSame) {
+      jumpTop();
+    }
+    try { history.replaceState(null, "", "#" + hash); } catch (err) {}
+    paint();
+  });
+
+  function openSheet() {
+    sheet.classList.add("open");
+    if (tocBtn) tocBtn.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+    sheet.scrollTop = 0;
+  }
+  function closeSheet() {
+    if (!sheet.classList.contains("open")) return;
+    sheet.classList.remove("open");
+    if (tocBtn) tocBtn.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+  if (tocBtn) tocBtn.addEventListener("click", openSheet);
+  var closeBtn = document.querySelector(".sheet-close");
+  if (closeBtn) closeBtn.addEventListener("click", closeSheet);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeSheet(); });
+
+  window.addEventListener("hashchange", fromHash);
+  window.addEventListener("scroll", function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(paint); }
+  }, { passive: true });
+  window.addEventListener("resize", paint);
+
+  fromHash();
+})();
+</script>
+</body>
+</html>
