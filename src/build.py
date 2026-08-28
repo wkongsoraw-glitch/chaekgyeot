@@ -31,6 +31,7 @@ HEAD = r'''<title>AI와 동행하는 방법</title>
     --rule-soft: #EDE7DB;
     --code-bg:   #F2EDE2;
     --shadow:    0 1px 2px rgba(33,29,24,.04), 0 12px 30px -24px rgba(33,29,24,.45);
+    --logo-img:  url("data:image/svg+xml;base64,__LOGO_LIGHT__");
 
     --measure: 38em;
     --mid:     760px;
@@ -57,6 +58,8 @@ HEAD = r'''<title>AI와 동행하는 방법</title>
       --rule-soft: #241F18;
       --code-bg:   #1F1B15;
       --shadow:    0 1px 2px rgba(0,0,0,.5), 0 12px 30px -24px rgba(0,0,0,.9);
+    --logo-img:  url("data:image/svg+xml;base64,__LOGO_DARK__");
+      --logo-img:  url("data:image/svg+xml;base64,__LOGO_DARK__");
     }
   }
   :root[data-theme="dark"] {
@@ -92,12 +95,10 @@ HEAD = r'''<title>AI와 동행하는 방법</title>
   /* ═══════════  로고  ═══════════ */
   .logo {
     display: block; flex: none;
-    background-image: url("data:image/png;base64,__LOGO_B64__");
+    background-image: var(--logo-img);
     background-repeat: no-repeat; background-position: left center; background-size: contain;
-    aspect-ratio: 452 / 158;
+    aspect-ratio: 450 / 158;
   }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .logo { filter: invert(1); } }
-  :root[data-theme="dark"] .logo { filter: invert(1); }
   .logo-cover { width: 86px; }
   .logo-side  { width: 60px; margin-bottom: 16px; }
   .logo-bar   { width: 51px; }
@@ -861,8 +862,8 @@ for (vid, num, title, cls), name in zip(VOLMETA, ("v1.html", "v2.html", "v3.html
         '\n      <ol>%s\n      </ol>'
         '\n    </div>' % (cls, vid, num, title, rows))
 
-LOGO_B64 = io.open(os.path.join(HERE, "logo.b64"), encoding="utf-8").read().strip()
-HEAD = HEAD.replace("__LOGO_B64__", LOGO_B64)
+for slot, fname in (("__LOGO_LIGHT__", "logo.b64"), ("__LOGO_DARK__", "logo-dark.b64")):
+    HEAD = HEAD.replace(slot, io.open(os.path.join(HERE, fname), encoding="utf-8").read().strip())
 
 parts = [HEAD, HUB.replace("<!--ALLTOC-->", "".join(blocks) + "\n  ")]
 for name in ("v1.html", "v2.html", "v3.html", "v4.html"):
